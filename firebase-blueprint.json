@@ -1,0 +1,298 @@
+{
+  "entities": {
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Authorized executive administrator profile for Al Haram Travels & Tours.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the administrator."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 200,
+          "description": "Verified administrator email."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin"],
+          "maxLength": 20,
+          "description": "Strict role identifier."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of creation."
+        }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "InquiryRecord": {
+      "title": "InquiryRecord",
+      "description": "Travel or Umrah booking inquiry submitted by a client and managed by the admin portal.",
+      "type": "object",
+      "properties": {
+        "referenceCode": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 32,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Reference code for the inquiry (e.g., AH-123456)."
+        },
+        "fullName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Client full name."
+        },
+        "whatsapp": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 40,
+          "description": "Client WhatsApp or phone number."
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160,
+          "description": "Optional client email address."
+        },
+        "travelers": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10,
+          "description": "Number of travelers."
+        },
+        "travelType": {
+          "type": "string",
+          "enum": ["Umrah", "Family Tour", "Group Tour", "Other"],
+          "maxLength": 40,
+          "description": "Selected travel category."
+        },
+        "preferredDate": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60,
+          "description": "Preferred travel date or Flexible Dates."
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 1500,
+          "description": "Client notes and preferences."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["new", "contacted", "booked", "archived"],
+          "maxLength": 20,
+          "description": "Processing status in the Admin Portal."
+        },
+        "adminNotes": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Internal executive notes."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when submitted."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when last updated."
+        }
+      },
+      "required": [
+        "referenceCode",
+        "fullName",
+        "whatsapp",
+        "email",
+        "travelers",
+        "travelType",
+        "preferredDate",
+        "message",
+        "status",
+        "adminNotes",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CustomUmrahPackage": {
+      "title": "CustomUmrahPackage",
+      "description": "Umrah package managed via the Admin Portal.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 140
+        },
+        "subtitle": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "duration": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "makkahStay": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "madinahStay": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "hotelCategory": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "transport": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "guidance": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "support": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "flightInfo": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 160
+        },
+        "availabilityNote": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 200
+        },
+        "image": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 500
+        },
+        "highlights": {
+          "type": "array",
+          "maxLength": 8,
+          "description": "Up to 8 package highlight strings."
+        },
+        "createdBy": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "name",
+        "subtitle",
+        "duration",
+        "makkahStay",
+        "madinahStay",
+        "hotelCategory",
+        "transport",
+        "guidance",
+        "support",
+        "flightInfo",
+        "availabilityNote",
+        "image",
+        "highlights",
+        "createdBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ClientReview": {
+      "title": "ClientReview",
+      "description": "Pilgrim or traveler testimonial managed by the Admin Portal.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "journeyType": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "rating": {
+          "type": "number"
+        },
+        "comment": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 1000
+        },
+        "dateLabel": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "status": {
+          "type": "string",
+          "enum": ["approved", "pending", "rejected"],
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "name",
+        "journeyType",
+        "rating",
+        "comment",
+        "dateLabel",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Admin role registry restricted to verified executives."
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": { "$ref": "#/entities/InquiryRecord" },
+      "description": "Client booking and travel inquiries containing PII (restricted read/list/update/delete to admins only)."
+    },
+    "/packages/{packageId}": {
+      "schema": { "$ref": "#/entities/CustomUmrahPackage" },
+      "description": "Published custom Umrah packages readable by the public and writable only by admins."
+    },
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/ClientReview" },
+      "description": "Client testimonials readable when approved or by admins, writable/moderated by admins."
+    }
+  }
+}

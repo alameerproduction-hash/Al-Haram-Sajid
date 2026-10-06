@@ -1,0 +1,262 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Global Primitives
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isBootstrappedAdmin() {
+      return isVerifiedUser() && request.auth.token.email == 'alameerproduction@gmail.com';
+    }
+
+    function isAdmin() {
+      return isVerifiedUser() && (
+        isBootstrappedAdmin() ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // 3. Entity Validation Blueprints
+    function isValidAdminUser(data) {
+      return data.keys().hasAll(['uid', 'email', 'role', 'createdAt']) &&
+        data.keys().hasOnly(['uid', 'email', 'role', 'createdAt']) &&
+        data.uid is string && data.uid.size() >= 1 && data.uid.size() <= 128 && data.uid.matches('^[a-zA-Z0-9_\\-]+$') &&
+        data.email is string && data.email.size() >= 3 && data.email.size() <= 200 &&
+        data.role is string && data.role == 'admin' &&
+        data.createdAt is timestamp;
+    }
+
+    function isValidInquiryRecord(data) {
+      return data.keys().hasAll([
+          'referenceCode',
+          'fullName',
+          'whatsapp',
+          'email',
+          'travelers',
+          'travelType',
+          'preferredDate',
+          'message',
+          'status',
+          'adminNotes',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'referenceCode',
+          'fullName',
+          'whatsapp',
+          'email',
+          'travelers',
+          'travelType',
+          'preferredDate',
+          'message',
+          'status',
+          'adminNotes',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.referenceCode is string && data.referenceCode.size() >= 4 && data.referenceCode.size() <= 32 && data.referenceCode.matches('^[a-zA-Z0-9_\\-]+$') &&
+        data.fullName is string && data.fullName.size() >= 1 && data.fullName.size() <= 120 &&
+        data.whatsapp is string && data.whatsapp.size() >= 5 && data.whatsapp.size() <= 40 &&
+        data.email is string && data.email.size() <= 160 &&
+        data.travelers is string && data.travelers.size() >= 1 && data.travelers.size() <= 10 &&
+        data.travelType is string && data.travelType in ['Umrah', 'Family Tour', 'Group Tour', 'Other'] &&
+        data.preferredDate is string && data.preferredDate.size() >= 1 && data.preferredDate.size() <= 60 &&
+        data.message is string && data.message.size() <= 1500 &&
+        data.status is string && data.status in ['new', 'contacted', 'booked', 'archived'] &&
+        data.adminNotes is string && data.adminNotes.size() <= 1000 &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    function isValidCustomUmrahPackage(data) {
+      return data.keys().hasAll([
+          'name',
+          'subtitle',
+          'duration',
+          'makkahStay',
+          'madinahStay',
+          'hotelCategory',
+          'transport',
+          'guidance',
+          'support',
+          'flightInfo',
+          'availabilityNote',
+          'image',
+          'highlights',
+          'createdBy',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'name',
+          'subtitle',
+          'duration',
+          'makkahStay',
+          'madinahStay',
+          'hotelCategory',
+          'transport',
+          'guidance',
+          'support',
+          'flightInfo',
+          'availabilityNote',
+          'image',
+          'highlights',
+          'createdBy',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.name is string && data.name.size() >= 2 && data.name.size() <= 140 &&
+        data.subtitle is string && data.subtitle.size() >= 2 && data.subtitle.size() <= 160 &&
+        data.duration is string && data.duration.size() >= 2 && data.duration.size() <= 100 &&
+        data.makkahStay is string && data.makkahStay.size() >= 2 && data.makkahStay.size() <= 160 &&
+        data.madinahStay is string && data.madinahStay.size() >= 2 && data.madinahStay.size() <= 160 &&
+        data.hotelCategory is string && data.hotelCategory.size() >= 2 && data.hotelCategory.size() <= 160 &&
+        data.transport is string && data.transport.size() >= 2 && data.transport.size() <= 160 &&
+        data.guidance is string && data.guidance.size() >= 2 && data.guidance.size() <= 160 &&
+        data.support is string && data.support.size() >= 2 && data.support.size() <= 160 &&
+        data.flightInfo is string && data.flightInfo.size() >= 2 && data.flightInfo.size() <= 160 &&
+        data.availabilityNote is string && data.availabilityNote.size() >= 2 && data.availabilityNote.size() <= 200 &&
+        data.image is string && data.image.size() >= 5 && data.image.size() <= 500 &&
+        data.highlights is list && data.highlights.size() >= 1 && data.highlights.size() <= 8 &&
+        data.highlights[0] is string && data.highlights[0].size() <= 200 &&
+        data.createdBy is string && data.createdBy.size() >= 1 && data.createdBy.size() <= 128 && data.createdBy.matches('^[a-zA-Z0-9_\\-]+$') &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    function isValidClientReview(data) {
+      return data.keys().hasAll([
+          'name',
+          'journeyType',
+          'rating',
+          'comment',
+          'dateLabel',
+          'status',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'name',
+          'journeyType',
+          'rating',
+          'comment',
+          'dateLabel',
+          'status',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.name is string && data.name.size() >= 1 && data.name.size() <= 100 &&
+        data.journeyType is string && data.journeyType.size() >= 2 && data.journeyType.size() <= 80 &&
+        data.rating is number && data.rating >= 1 && data.rating <= 5 &&
+        data.comment is string && data.comment.size() >= 3 && data.comment.size() <= 1000 &&
+        data.dateLabel is string && data.dateLabel.size() >= 2 && data.dateLabel.size() <= 50 &&
+        data.status is string && data.status in ['approved', 'pending', 'rejected'] &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    // 4. Collection Rules
+
+    // Admins Registry
+    match /admins/{adminId} {
+      allow get: if isSignedIn() && isValidId(adminId) && (request.auth.uid == adminId || isAdmin());
+      allow list: if isAdmin() && resource.data.role == 'admin';
+      allow create: if isSignedIn() && isValidId(adminId) && isValidAdminUser(incoming()) &&
+        incoming().uid == adminId &&
+        incoming().createdAt == request.time &&
+        isAdmin();
+      allow update: if false;
+      allow delete: if isAdmin() && isValidId(adminId) && adminId != request.auth.uid;
+    }
+
+    // Inquiries Collection (Strict PII Protection — Read/List/Update/Delete restricted to Admins)
+    match /inquiries/{inquiryId} {
+      allow get: if isAdmin() && isValidId(inquiryId);
+      allow list: if isAdmin() && resource.data.status in ['new', 'contacted', 'booked', 'archived'];
+      allow create: if isValidId(inquiryId) && isValidInquiryRecord(incoming()) &&
+        incoming().status == 'new' &&
+        incoming().adminNotes == '' &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isSignedIn() && isValidId(inquiryId) && isValidInquiryRecord(incoming()) &&
+        isAdmin() &&
+        incoming().referenceCode == existing().referenceCode &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        incoming().diff(existing()).affectedKeys().hasOnly(['status', 'adminNotes', 'updatedAt']);
+      allow delete: if isAdmin() && isValidId(inquiryId);
+    }
+
+    // Custom Umrah Packages Collection
+    match /packages/{packageId} {
+      allow get: if isValidId(packageId);
+      allow list: if resource.data.name is string;
+      allow create: if isSignedIn() && isValidId(packageId) && isValidCustomUmrahPackage(incoming()) &&
+        isAdmin() &&
+        incoming().createdBy == request.auth.uid &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isSignedIn() && isValidId(packageId) && isValidCustomUmrahPackage(incoming()) &&
+        isAdmin() &&
+        incoming().createdBy == existing().createdBy &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'name',
+          'subtitle',
+          'duration',
+          'makkahStay',
+          'madinahStay',
+          'hotelCategory',
+          'transport',
+          'guidance',
+          'support',
+          'flightInfo',
+          'availabilityNote',
+          'image',
+          'highlights',
+          'updatedAt'
+        ]);
+      allow delete: if isAdmin() && isValidId(packageId);
+    }
+
+    // Client Reviews Collection
+    match /reviews/{reviewId} {
+      allow get: if isValidId(reviewId) && (resource.data.status == 'approved' || isAdmin());
+      allow list: if resource.data.status == 'approved' || isAdmin();
+      allow create: if isValidId(reviewId) && isValidClientReview(incoming()) &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time &&
+        (incoming().status == 'pending' || isAdmin());
+      allow update: if isSignedIn() && isValidId(reviewId) && isValidClientReview(incoming()) &&
+        isAdmin() &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        incoming().diff(existing()).affectedKeys().hasOnly(['status', 'comment', 'rating', 'updatedAt']);
+      allow delete: if isAdmin() && isValidId(reviewId);
+    }
+  }
+}
