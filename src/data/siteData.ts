@@ -1,3 +1,5 @@
+import { INLINE_IMAGES } from './inlineImages';
+
 export type PageId =
   | 'home'
   | 'about'
@@ -12,13 +14,12 @@ export type PageId =
   | 'admin';
 
 export const IMAGES = {
-  heroHaram: '/src/assets/images/hero_masjid_al_haram_1791294558977.jpg',
-  madinahMosque: '/src/assets/images/madinah_prophet_mosque_1791294572353.jpg',
-  umrahSanctuary: '/src/assets/images/umrah_pilgrims_sanctuary_1791294584413.jpg',
-  luxuryHospitality: '/src/assets/images/luxury_makkah_hospitality_1791294596855.jpg',
-  arabianOasis: '/src/assets/images/arabian_heritage_oasis_1791294608959.jpg',
-  ceoPortrait:
-    'https://scontent.fskt3-1.fna.fbcdn.net/v/t39.30808-6/783619003_1092753923310306_7144303534511287223_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1200x1600&ctp=s1200x1600&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tPJGmZt4JBgQ7kNvwEPG5ME&_nc_oc=AdrYg77QyRfGjbRbRXtxvmOku4JYOhGIhcKU-F7VzVmoW3DpayPyZ5aQgdo9i7DqyfI&_nc_zt=23&_nc_ht=scontent.fskt3-1.fna&_nc_gid=2uTX29hwZRfulBqNGtAwzw&_nc_ss=7b2a8&oh=00_AQO9lx8V2CoRP3IsovWTafavpGMNq5yLsTwte48CrQTwKw&oe=6ACAEDDB',
+  heroHaram: INLINE_IMAGES.heroHaram,
+  madinahMosque: INLINE_IMAGES.madinahMosque,
+  umrahSanctuary: INLINE_IMAGES.umrahSanctuary,
+  luxuryHospitality: INLINE_IMAGES.luxuryHospitality,
+  arabianOasis: INLINE_IMAGES.arabianOasis,
+  ceoPortrait: INLINE_IMAGES.ceoPortrait,
 };
 
 export const OFFICE_LOCATION = {

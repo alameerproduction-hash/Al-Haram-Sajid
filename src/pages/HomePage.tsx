@@ -40,7 +40,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           <ResilientImage
             src={IMAGES.heroHaram}
             alt="Masjid al-Haram and the Holy Kaaba in Makkah at golden evening light"
-            className="w-full h-full object-cover object-center scale-102"
+            className="w-full h-full object-cover object-center scale-105"
           />
           {/* Rich Black (#0F0F0F) Contrast Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#0F0F0F]/95 via-[#0F0F0F]/82 to-[#0F0F0F]/45" />

@@ -290,7 +290,7 @@ export const WelcomeOverlay: React.FC<WelcomeOverlayProps> = ({ onComplete }) =>
               >
                 {/* Crisp White Studio Plinth Disc so the exact Black/Orange/Blue source logo preserves 100% identity */}
                 <div
-                  className={`w-64 h-64 sm:w-84 sm:h-84 rounded-[48px] flex items-center justify-center p-5 sm:p-7 ${
+                  className={`w-64 h-64 sm:w-80 sm:h-80 rounded-[48px] flex items-center justify-center p-5 sm:p-7 ${
                     isFrontFace
                       ? 'bg-gradient-to-br from-[#FFFFFF] via-[#FDFDFD] to-[#F2F6FA] border-2 border-[#E8C377] shadow-[inset_0_2px_10px_rgba(255,255,255,1)]'
                       : 'bg-gradient-to-br from-[#D68910] via-[#4A4A4A] to-[#0B92D6]'

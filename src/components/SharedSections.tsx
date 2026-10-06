@@ -603,7 +603,7 @@ export const LeadershipExecutiveSection: React.FC = () => {
 
             {/* Executive Portrait of CEO Sajid Kahloon */}
             <div className="my-8 flex flex-col items-center text-center">
-              <div className="w-56 h-68 sm:w-64 sm:h-76 rounded-[32px] overflow-hidden bg-gradient-to-br from-[#1F1F1F] to-[#0F0F0F] border-2 border-[#EEA012] shadow-[0_20px_50px_-10px_rgba(238,160,18,0.35)] relative">
+              <div className="w-56 h-72 sm:w-64 sm:h-80 rounded-[32px] overflow-hidden bg-gradient-to-br from-[#1F1F1F] to-[#0F0F0F] border-2 border-[#EEA012] shadow-[0_20px_50px_-10px_rgba(238,160,18,0.35)] relative">
                 <ResilientImage
                   src={IMAGES.ceoPortrait}
                   alt="Sajid Kahloon — CEO Al Haram Travels & Tours"
