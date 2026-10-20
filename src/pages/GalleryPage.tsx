@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import { Image as ImageIcon, Maximize2, X, MapPin } from 'lucide-react';
-import { GALLERY_ITEMS, GalleryItem } from '../data/siteData';
+import { GalleryItem } from '../data/siteData';
 import { SquircleIcon } from '../components/SquircleIcon';
 import { ResilientImage } from '../components/ResilientImage';
+import { useLanguage } from '../context/LanguageContext';
 
 export const GalleryPage: React.FC = () => {
+  const { t, getGalleryItems } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [lightboxItem, setLightboxItem] = useState<GalleryItem | null>(null);
 
-  const categories = ['All', 'Makkah', 'Madinah', 'Umrah', 'Travel', 'Tours'];
+  const categories = [
+    { id: 'All', label: t('All', 'تمام') },
+    { id: 'Makkah', label: t('Makkah', 'مکہ مکرمہ') },
+    { id: 'Madinah', label: t('Madinah', 'مدینہ منورہ') },
+    { id: 'Umrah', label: t('Umrah', 'عمرہ') },
+    { id: 'Travel', label: t('Travel', 'سفر') },
+    { id: 'Tours', label: t('Tours', 'ٹورز') },
+  ];
+
+  const allItems = getGalleryItems();
 
   const filteredItems =
     activeCategory === 'All'
-      ? GALLERY_ITEMS
-      : GALLERY_ITEMS.filter((item) => item.category === activeCategory);
+      ? allItems
+      : allItems.filter((item) => item.category === activeCategory);
 
   return (
     <div className="pt-24">
@@ -26,15 +37,20 @@ export const GalleryPage: React.FC = () => {
                 <ImageIcon className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <span className="tracking-[0.18em] uppercase">
-                Sacred Sanctuaries &amp; Travel Destinations
+                {t(
+                  'Sacred Sanctuaries & Travel Destinations',
+                  'مقدس مقامات اور سیاحتی منازل'
+                )}
               </span>
             </div>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              VISUAL GALLERY
+              {t('VISUAL GALLERY', 'تصویری گیلری')}
             </h1>
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/85 leading-relaxed">
-              Glimpses of Masjid al-Haram in Makkah, Al-Masjid an-Nabawi in
-              Madinah, executive hospitality, and curated regional tours.
+              {t(
+                'Glimpses of Masjid al-Haram in Makkah, Al-Masjid an-Nabawi in Madinah, executive hospitality, and curated regional tours.',
+                'مکہ مکرمہ میں مسجد الحرام، مدینہ منورہ میں مسجد نبوی ﷺ، بہترین رہائشی انتظامات اور علاقائی سیاحتی مقامات کی جھلکیاں۔'
+              )}
             </p>
           </div>
         </div>
@@ -47,23 +63,27 @@ export const GalleryPage: React.FC = () => {
           <div className="inline-flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-[#FFF9EB] border-2 border-[#EEA012]/50">
             {categories.map((cat) => (
               <button
-                key={cat}
+                key={cat.id}
                 type="button"
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => setActiveCategory(cat.id)}
                 className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-colors cursor-pointer whitespace-nowrap ${
-                  activeCategory === cat
+                  activeCategory === cat.id
                     ? 'bg-[#0F0F0F] text-[#EEA012] shadow-sm'
                     : 'text-[#0F0F0F]/80 hover:text-[#0B92D6]'
                 }`}
               >
-                {cat}
+                {cat.label}
               </button>
             ))}
           </div>
 
           <p className="text-xs font-mono font-extrabold text-[#0B92D6] tabular-nums">
-            Showing {filteredItems.length}{' '}
-            {filteredItems.length === 1 ? 'Photograph' : 'Photographs'}
+            {t(
+              `Showing ${filteredItems.length} ${
+                filteredItems.length === 1 ? 'Photograph' : 'Photographs'
+              }`,
+              `کل ${filteredItems.length} تصاویر`
+            )}
           </p>
         </div>
 

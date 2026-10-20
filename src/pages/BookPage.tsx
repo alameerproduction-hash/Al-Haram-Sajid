@@ -7,19 +7,23 @@ import {
   MessageCircle,
   ArrowUpRight,
 } from 'lucide-react';
-import { CONTACT_NUMBERS, SOCIAL_LINKS } from '../data/siteData';
+import { SOCIAL_LINKS } from '../data/siteData';
 import { SquircleIcon } from '../components/SquircleIcon';
 import { BrandSocialIcon } from '../components/SocialIcons';
 import {
   InquiryFormSection,
   InquiryPreset,
 } from '../components/InquiryFormSection';
+import { useLanguage } from '../context/LanguageContext';
 
 interface BookPageProps {
   preset?: InquiryPreset | null;
 }
 
 export const BookPage: React.FC<BookPageProps> = ({ preset }) => {
+  const { t, getContactNumbers } = useLanguage();
+  const contactNumbers = getContactNumbers();
+
   return (
     <div className="pt-24">
       {/* Header */}
@@ -31,16 +35,20 @@ export const BookPage: React.FC<BookPageProps> = ({ preset }) => {
                 <Compass className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <span className="tracking-[0.18em] uppercase">
-                Seamless Journey Reservation &amp; Consultation
+                {t(
+                  'Seamless Journey Reservation & Consultation',
+                  'آسان سفری بکنگ اور مشاورت'
+                )}
               </span>
             </div>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              BOOK YOUR JOURNEY
+              {t('BOOK YOUR JOURNEY', 'اپنا سفر بک کریں')}
             </h1>
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/85 leading-relaxed">
-              Submit your travel details below or connect immediately via our 3
-              official WhatsApp and phone lines for a customized Umrah or
-              international tour proposal.
+              {t(
+                'Submit your travel details below or connect immediately via our 3 official WhatsApp and phone lines for a customized Umrah or international tour proposal.',
+                'نیچے اپنی سفری تفصیلات جمع کروائیں یا کسٹمائزڈ عمرہ اور بین الاقوامی ٹور کے لیے ہمارے 3 آفیشل واٹس ایپ اور فون نمبرز پر فوری رابطہ کریں۔'
+              )}
             </p>
           </div>
         </div>
@@ -52,8 +60,11 @@ export const BookPage: React.FC<BookPageProps> = ({ preset }) => {
           <div className="lg:col-span-8">
             <InquiryFormSection
               preset={preset}
-              heading="PLAN YOUR JOURNEY"
-              subheading="Provide your preferred travel dates, number of travelers, and any specific accommodation or transport requests."
+              heading={t('PLAN YOUR JOURNEY', 'اپنے سفر کی منصوبہ بندی کریں')}
+              subheading={t(
+                'Provide your preferred travel dates, number of travelers, and any specific accommodation or transport requests.',
+                'اپنی پسندیدہ تاریخِ سفر، مسافروں کی تعداد اور رہائش یا ٹرانسپورٹ کی خصوصی ترجیحات درج کریں۔'
+              )}
             />
           </div>
 
@@ -67,16 +78,16 @@ export const BookPage: React.FC<BookPageProps> = ({ preset }) => {
                 </SquircleIcon>
                 <div>
                   <h2 className="font-display text-lg font-extrabold text-[#0F0F0F]">
-                    Instant WhatsApp &amp; Call
+                    {t('Instant WhatsApp & Call', 'فوری واٹس ایپ اور کال')}
                   </h2>
                   <p className="text-xs font-bold text-[#0B92D6]">
-                    All Numbers Active on WhatsApp
+                    {t('All Numbers Active on WhatsApp', 'تمام نمبرز واٹس ایپ پر فعال ہیں')}
                   </p>
                 </div>
               </div>
 
               <div className="space-y-2.5">
-                {CONTACT_NUMBERS.map((num) => (
+                {contactNumbers.map((num) => (
                   <div
                     key={num.raw}
                     className="rounded-2xl bg-[#FFFFFF] border border-[#0F0F0F]/12 p-3.5 flex items-center justify-between gap-2"
@@ -98,7 +109,7 @@ export const BookPage: React.FC<BookPageProps> = ({ preset }) => {
                         className="px-2.5 py-1.5 rounded-lg bg-[#0F0F0F] text-[#FFFFFF] hover:bg-[#0B92D6] text-[11px] font-extrabold inline-flex items-center gap-1"
                       >
                         <Phone className="w-3 h-3 text-[#EEA012]" />
-                        <span>Call</span>
+                        <span>{t('Call', 'کال')}</span>
                       </a>
                       <a
                         href={num.whatsappHref}
@@ -107,7 +118,7 @@ export const BookPage: React.FC<BookPageProps> = ({ preset }) => {
                         className="px-2.5 py-1.5 rounded-lg bg-[#EEA012] text-[#0F0F0F] hover:bg-[#0B92D6] hover:text-[#FFFFFF] text-[11px] font-extrabold inline-flex items-center gap-1"
                       >
                         <MessageCircle className="w-3 h-3" />
-                        <span>WhatsApp</span>
+                        <span>{t('WhatsApp', 'واٹس ایپ')}</span>
                       </a>
                     </div>
                   </div>
@@ -123,10 +134,10 @@ export const BookPage: React.FC<BookPageProps> = ({ preset }) => {
                 </SquircleIcon>
                 <div>
                   <h2 className="font-display text-lg font-extrabold">
-                    Our Consultation Promise
+                    {t('Our Consultation Promise', 'ہمارا مشاورتی عہد')}
                   </h2>
                   <p className="text-xs font-extrabold text-[#0B92D6]">
-                    Al Haram Travels &amp; Tours
+                    {t('Al Harm Travels & Tours', 'الحرم ٹریولز اینڈ ٹورز')}
                   </p>
                 </div>
               </div>
@@ -135,31 +146,42 @@ export const BookPage: React.FC<BookPageProps> = ({ preset }) => {
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#EEA012] shrink-0 mt-0.5" />
                   <span>
-                    <strong>Personalized Review:</strong> Our Gujranwala team
-                    reviews your preferred travel dates and group size.
+                    <strong>{t('Personalized Review:', 'ذاتی جائزہ:')}</strong>{' '}
+                    {t(
+                      'Our Gujranwala team reviews your preferred travel dates and group size.',
+                      'ہماری گوجرانوالہ ٹیم آپ کی پسندیدہ تاریخوں اور مسافروں کی تعداد کا تفصیلی جائزہ لیتی ہے۔'
+                    )}
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#0B92D6] shrink-0 mt-0.5" />
                   <span>
-                    <strong>Current Availability &amp; Pricing:</strong> We
-                    prepare tailored Makkah &amp; Madinah accommodation and flight
-                    options based on live availability.
+                    <strong>
+                      {t('Current Availability & Pricing:', 'موجودہ دستیابی اور قیمتیں:')}
+                    </strong>{' '}
+                    {t(
+                      'We prepare tailored Makkah & Madinah accommodation and flight options based on live availability.',
+                      'ہم موجودہ دستیابی کے مطابق مکہ مکرمہ اور مدینہ منورہ میں رہائش اور فلائٹ کے بہترین آپشنز تیار کرتے ہیں۔'
+                    )}
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#EEA012] shrink-0 mt-0.5" />
                   <span>
-                    <strong>Direct WhatsApp &amp; Phone Support:</strong> Clear,
-                    transparent guidance through visa processing and pre-departure
-                    preparation.
+                    <strong>
+                      {t('Direct WhatsApp & Phone Support:', 'براہِ راست واٹس ایپ اور فون سپورٹ:')}
+                    </strong>{' '}
+                    {t(
+                      'Clear, transparent guidance through visa processing and pre-departure preparation.',
+                      'ویزا پروسیسنگ اور روانگی سے قبل تیاری کے ہر مرحلے میں واضح اور شفاف رہنمائی۔'
+                    )}
                   </span>
                 </li>
               </ul>
 
               <div className="pt-4 border-t border-[#FFFFFF]/15 space-y-3">
                 <p className="text-xs font-extrabold text-[#EEA012]">
-                  Follow Us on Social Media
+                  {t('Follow Us on Social Media', 'سوشل میڈیا پر ہمیں فالو کریں')}
                 </p>
                 <div className="flex flex-wrap items-center gap-2">
                   {SOCIAL_LINKS.map((soc) => (

@@ -222,7 +222,7 @@ export const OfficialBrandLogo: React.FC<OfficialBrandLogoProps> = ({
             fill={darkBackground ? '#0F0F0F' : '#FFFFFF'}
           />
 
-          {/* Subtitle: TRAVEL & TOURS */}
+          {/* Subtitle: TRAVELS & TOURS */}
           <text
             x="304"
             y="578"
@@ -233,7 +233,7 @@ export const OfficialBrandLogo: React.FC<OfficialBrandLogoProps> = ({
             fontSize="41"
             letterSpacing="4.5"
           >
-            TRAVEL &amp; TOURS
+            TRAVELS &amp; TOURS
           </text>
         </g>
       )}

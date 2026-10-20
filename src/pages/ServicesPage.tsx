@@ -3,6 +3,7 @@ import { ShieldCheck } from 'lucide-react';
 import { SquircleIcon } from '../components/SquircleIcon';
 import { ServicesGridSection } from '../components/SharedSections';
 import { InquiryPreset } from '../components/InquiryFormSection';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ServicesPageProps {
   onInquireWithPreset: (preset: InquiryPreset) => void;
@@ -11,26 +12,39 @@ interface ServicesPageProps {
 export const ServicesPage: React.FC<ServicesPageProps> = ({
   onInquireWithPreset,
 }) => {
+  const { t } = useLanguage();
   const workflowSteps = [
     {
-      step: '01. Initial Consultation',
-      title: 'Understanding Your Travel Goals',
-      desc: 'Discuss your preferred dates, number of family members, hotel proximity preferences, and budget with our Gujranwala team.',
+      step: t('01. Initial Consultation', '01. ابتدائی مشاورت'),
+      title: t('Understanding Your Travel Goals', 'آپ کی سفری ضروریات کو سمجھنا'),
+      desc: t(
+        'Discuss your preferred dates, number of family members, hotel proximity preferences, and budget with our Gujranwala team.',
+        'ہماری گوجرانوالہ ٹیم کے ساتھ اپنی پسندیدہ تاریخوں، فیملی ممبران کی تعداد، ہوٹل کی قربت اور بجٹ پر تفصیلی مشاورت کریں۔'
+      ),
     },
     {
-      step: '02. Documentation & Visa',
-      title: 'Seamless Visa & Flight Processing',
-      desc: 'We guide you through passport verification, Umrah or travel visa processing, and coordinated airline reservations.',
+      step: t('02. Documentation & Visa', '02. دستاویزات اور ویزا'),
+      title: t('Seamless Visa & Flight Processing', 'آسان ویزا اور فلائٹ پروسیسنگ'),
+      desc: t(
+        'We guide you through passport verification, Umrah or travel visa processing, and coordinated airline reservations.',
+        'پاسپورٹ کی تصدیق، عمرہ یا ٹریول ویزا پروسیسنگ اور مربوط ایئر لائن بکنگ میں ہم آپ کی مکمل رہنمائی کرتے ہیں۔'
+      ),
     },
     {
-      step: '03. Accommodation & Ziyarat',
-      title: 'Confirmed Stays & Ground Transport',
-      desc: 'Receive clear confirmation of your Makkah and Madinah accommodations, airport transfers, and guided Ziyarat arrangements.',
+      step: t('03. Accommodation & Ziyarat', '03. رہائش اور زیارات'),
+      title: t('Confirmed Stays & Ground Transport', 'کنفرم رہائش اور گراؤنڈ ٹرانسپورٹ'),
+      desc: t(
+        'Receive clear confirmation of your Makkah and Madinah accommodations, airport transfers, and guided Ziyarat arrangements.',
+        'مکہ مکرمہ اور مدینہ منورہ میں رہائش، ایئرپورٹ ٹرانسفرز اور زیارات کے انتظامات کی واضح تصدیق حاصل کریں۔'
+      ),
     },
     {
-      step: '04. Continuous Support',
-      title: 'Pre-Departure Briefing & On-Trip Care',
-      desc: 'Depart with confidence knowing our support team remains reachable throughout your sacred or international journey.',
+      step: t('04. Continuous Support', '04. مسلسل معاونت'),
+      title: t('Pre-Departure Briefing & On-Trip Care', 'روانگی سے قبل بریفنگ اور دورانِ سفر مدد'),
+      desc: t(
+        'Depart with confidence knowing our support team remains reachable throughout your sacred or international journey.',
+        'اس اعتماد کے ساتھ روانہ ہوں کہ ہماری سپورٹ ٹیم آپ کے مقدس یا بین الاقوامی سفر کے دوران ہر وقت رابطے میں رہے گی۔'
+      ),
     },
   ];
 
@@ -45,15 +59,20 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 <ShieldCheck className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <span className="tracking-[0.18em] uppercase">
-                End-to-End Pilgrimage &amp; Travel Management
+                {t(
+                  'End-to-End Pilgrimage & Travel Management',
+                  'مکمل عمرہ اور ٹریول مینجمنٹ'
+                )}
               </span>
             </div>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              OUR SERVICES
+              {t('OUR SERVICES', 'ہماری خدمات')}
             </h1>
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/85 leading-relaxed">
-              Professional assistance across every element of your Umrah
-              and international travel—crafted for peace of mind and comfort.
+              {t(
+                'Professional assistance across every element of your Umrah and international travel—crafted for peace of mind and comfort.',
+                'آپ کے عمرہ اور بین الاقوامی سفر کے ہر مرحلے میں پیشہ ورانہ معاونت—جو آپ کے ذہنی سکون اور آرام کے لیے ترتیب دی گئی ہے۔'
+              )}
             </p>
           </div>
         </div>
@@ -74,10 +93,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
             <p className="text-xs font-extrabold tracking-[0.2em] text-[#0B92D6] uppercase mb-2">
-              Structured Journey Planning
+              {t('Structured Journey Planning', 'منظم سفری منصوبہ بندی')}
             </p>
             <h2 className="font-display text-3xl font-extrabold text-[#0F0F0F]">
-              HOW WE ORGANIZE YOUR JOURNEY
+              {t('HOW WE ORGANIZE YOUR JOURNEY', 'ہم آپ کے سفر کو کیسے منظم کرتے ہیں')}
             </h2>
           </div>
 

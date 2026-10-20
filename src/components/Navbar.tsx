@@ -5,10 +5,12 @@ import {
   ChevronDown,
   ArrowRight,
   MapPin,
+  Globe,
 } from 'lucide-react';
 import { PageId } from '../data/siteData';
 import { SquircleIcon } from './SquircleIcon';
 import { OfficialBrandLogo } from './OfficialBrandLogo';
+import { useLanguage } from '../context/LanguageContext';
 
 interface NavbarProps {
   currentPage: PageId;
@@ -21,6 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   hasHeroBackdrop,
 }) => {
+  const { language, setLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
@@ -48,18 +51,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isTransparent = hasHeroBackdrop && !scrolled && !mobileMenuOpen;
 
   const primaryLinks: { id: PageId; label: string }[] = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'umrah', label: 'Umrah' },
-    { id: 'tours', label: 'Tours' },
-    { id: 'services', label: 'Services' },
+    { id: 'home', label: t('Home', 'ہوم') },
+    { id: 'about', label: t('About', 'ہمارے بارے میں') },
+    { id: 'umrah', label: t('Umrah', 'عمرہ') },
+    { id: 'tours', label: t('Tours', 'ٹورز') },
+    { id: 'services', label: t('Services', 'خدمات') },
   ];
 
   const moreLinks: { id: PageId; label: string }[] = [
-    { id: 'why-choose-us', label: 'Why Choose Us' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'reviews', label: 'Reviews' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'why-choose-us', label: t('Why Choose Us', 'ہمیں کیوں منتخب کریں') },
+    { id: 'gallery', label: t('Gallery', 'گیلری') },
+    { id: 'reviews', label: t('Reviews', 'آراء') },
+    { id: 'contact', label: t('Contact', 'رابطہ') },
   ];
 
   const allMobileLinks: { id: PageId; label: string }[] = [
@@ -81,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           : 'bg-[#FFFFFF]/95 backdrop-blur-md border-b-2 border-[#EEA012]/35 shadow-[0_6px_24px_-6px_rgba(15,15,15,0.1)] py-3.5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
         {/* Zone 1: Official Brand Logo + Single text element wordmark */}
         <button
           type="button"
@@ -96,13 +99,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               showWordmark={false}
             />
           </span>
-          <span>AL HARAM TRAVELS &amp; TOURS</span>
+          <span>{t('AL HARM TRAVELS & TOURS', 'الحرم ٹریولز اینڈ ٹورز')}</span>
         </button>
 
         {/* Zone 2: Primary Navigation Links (Desktop) */}
         <nav
           aria-label="Main Navigation"
-          className="hidden lg:flex items-center gap-7"
+          className="hidden lg:flex items-center gap-6"
         >
           {primaryLinks.map((item) => {
             const isActive = currentPage === item.id;
@@ -178,7 +181,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   : 'text-[#0F0F0F]/80 hover:text-[#0B92D6]'
               }`}
             >
-              <span>Explore</span>
+              <span>{t('Explore', 'مزید')}</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-150 ${
                   moreMenuOpen ? 'rotate-180 text-[#EEA012]' : ''
@@ -211,18 +214,59 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </nav>
 
-        {/* Zone 3: Primary Action CTA & Mobile Menu Toggle */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* Zone 3: Language Switcher, Primary Action CTA & Mobile Menu Toggle */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Segmented EN / UR Language Switcher */}
+          <div
+            role="group"
+            aria-label="Language switcher"
+            className={`inline-flex items-center rounded-xl p-1 border-2 transition-colors ${
+              isTransparent
+                ? 'bg-[#0F0F0F]/70 border-[#EEA012]/60 text-[#FFFFFF]'
+                : 'bg-[#FFF9EB] border-[#EEA012]/60 text-[#0F0F0F]'
+            }`}
+          >
+            <Globe className="w-3.5 h-3.5 text-[#0B92D6] mx-1.5 hidden sm:block shrink-0" />
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              aria-pressed={language === 'en'}
+              className={`px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+                language === 'en'
+                  ? 'bg-[#EEA012] text-[#0F0F0F] shadow-sm'
+                  : isTransparent
+                  ? 'text-[#FFFFFF]/80 hover:text-[#EEA012]'
+                  : 'text-[#0F0F0F]/75 hover:text-[#0B92D6]'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('ur')}
+              aria-pressed={language === 'ur'}
+              className={`px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+                language === 'ur'
+                  ? 'bg-[#EEA012] text-[#0F0F0F] shadow-sm'
+                  : isTransparent
+                  ? 'text-[#FFFFFF]/80 hover:text-[#EEA012]'
+                  : 'text-[#0F0F0F]/75 hover:text-[#0B92D6]'
+              }`}
+            >
+              اردو
+            </button>
+          </div>
+
           <button
             type="button"
             onClick={() => handleLinkClick('book')}
-            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 whitespace-nowrap shrink-0 cursor-pointer ${
+            className={`hidden sm:inline-flex px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 whitespace-nowrap shrink-0 cursor-pointer ${
               isTransparent
                 ? 'bg-[#EEA012] text-[#0F0F0F] hover:bg-[#E8C377] shadow-[0_8px_22px_-4px_rgba(238,160,18,0.5)]'
                 : 'bg-[#0F0F0F] text-[#EEA012] hover:bg-[#0B92D6] hover:text-[#FFFFFF] border border-[#EEA012]/50 shadow-[0_8px_20px_-4px_rgba(15,15,15,0.28)]'
             }`}
           >
-            Book Your Journey
+            {t('Book Your Journey', 'اپنا سفر بک کریں')}
           </button>
 
           {/* Mobile Hamburger Trigger inside Squircle Container */}
@@ -268,6 +312,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               );
             })}
+            <button
+              type="button"
+              onClick={() => handleLinkClick('book')}
+              className="mt-2 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#EEA012] text-[#0F0F0F] text-sm font-extrabold"
+            >
+              <span>{t('Book Your Journey', 'اپنا سفر بک کریں')}</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
 
           <div className="mt-5 pt-4 border-t border-[#0F0F0F]/10 space-y-3 px-2">
@@ -283,10 +335,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </SquircleIcon>
                 <div>
                   <p className="font-extrabold text-[#0F0F0F] group-hover:text-[#0B92D6] underline decoration-[#EEA012]">
-                    Gujranwala, Pakistan (Open Map)
+                    {t('Gujranwala, Pakistan (Open Map)', 'گوجرانوالہ، پاکستان (نقشہ کھولیں)')}
                   </p>
                   <p className="text-[11px] font-bold text-[#0B92D6]">
-                    CEO Sajid Kahloon · Chairman Travel &amp; Tour
+                    {t('CEO Sajid Kahloon · Chairman Travel & Tour', 'سی ای او ساجد کہلوں · چیئرمین ٹریول اینڈ ٹور')}
                   </p>
                 </div>
               </a>
@@ -323,3 +375,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+

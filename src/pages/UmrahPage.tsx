@@ -13,6 +13,7 @@ import { UmrahPackage } from '../data/siteData';
 import { SquircleIcon } from '../components/SquircleIcon';
 import { UmrahPackagesGrid, ServicesGridSection } from '../components/SharedSections';
 import { InquiryPreset } from '../components/InquiryFormSection';
+import { useLanguage } from '../context/LanguageContext';
 
 interface UmrahPageProps {
   onSelectPackage: (pkg: UmrahPackage) => void;
@@ -23,6 +24,7 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
   onSelectPackage,
   onInquireWithPreset,
 }) => {
+  const { t } = useLanguage();
   const [duration, setDuration] = useState('14 Days');
   const [groupType, setGroupType] = useState('Family');
   const [hotelPreference, setHotelPreference] = useState('Walking Distance / Near Haram');
@@ -46,16 +48,20 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
                 <Compass className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <span className="tracking-[0.18em] uppercase">
-                Makkah &amp; Madinah Pilgrimage · Al Haram Travels &amp; Tours
+                {t(
+                  'Makkah & Madinah Pilgrimage · Al Harm Travels & Tours',
+                  'مکہ مکرمہ اور مدینہ منورہ کا مقدس سفر · الحرم ٹریولز اینڈ ٹورز'
+                )}
               </span>
             </div>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              Choose Your Umrah Journey
+              {t('Choose Your Umrah Journey', 'اپنے سفرِ عمرہ کا انتخاب کریں')}
             </h1>
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/85 leading-relaxed">
-              We design customized Umrah packages around your preferred dates,
-              hotel proximity in Makkah and Madinah, ground transport, and family
-              comfort. Contact us for current availability and pricing.
+              {t(
+                'We design customized Umrah packages around your preferred dates, hotel proximity in Makkah and Madinah, ground transport, and family comfort. Contact us for current availability and pricing.',
+                'ہم آپ کی پسندیدہ تاریخوں، مکہ مکرمہ اور مدینہ منورہ میں ہوٹل کی قربت، ٹرانسپورٹ اور فیملی کے آرام کے مطابق کسٹمائزڈ عمرہ پیکجز تیار کرتے ہیں۔ موجودہ دستیابی اور قیمتوں کے لیے ہم سے رابطہ کریں۔'
+              )}
             </p>
           </div>
         </div>
@@ -78,15 +84,20 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
                 <SquircleIcon variant="gold" size="sm">
                   <Sliders className="w-4 h-4 text-[#0F0F0F]" />
                 </SquircleIcon>
-                <span>Interactive Umrah Planner</span>
+                <span>{t('Interactive Umrah Planner', 'انٹرایکٹو عمرہ پلانر')}</span>
               </div>
               <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F0F0F]">
-                CONFIGURE YOUR CUSTOMIZED UMRAH PACKAGE
+                {t(
+                  'CONFIGURE YOUR CUSTOMIZED UMRAH PACKAGE',
+                  'اپنا کسٹمائزڈ عمرہ پیکج ترتیب دیں'
+                )}
               </h2>
             </div>
             <p className="text-xs sm:text-sm font-bold text-[#0F0F0F]/75 max-w-md">
-              Select your preferred parameters below to pre-fill a customized
-              availability and pricing request for our travel desk.
+              {t(
+                'Select your preferred parameters below to pre-fill a customized availability and pricing request for our travel desk.',
+                'ہمارے ٹریول ڈیسک سے دستیابی اور قیمت معلوم کرنے کے لیے نیچے اپنی ترجیحات منتخب کریں۔'
+              )}
             </p>
           </div>
 
@@ -97,25 +108,29 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Calendar className="w-3.5 h-3.5 text-[#EEA012]" />
                 </SquircleIcon>
-                <span>1. Preferred Duration</span>
+                <span>{t('1. Preferred Duration', '1. پسندیدہ دورانیہ')}</span>
               </label>
               <div className="space-y-1.5">
-                {['7 Days', '10 Days', '14 Days', '21 Days', 'Custom Dates'].map(
-                  (opt) => (
-                    <button
-                      key={opt}
-                      type="button"
-                      onClick={() => setDuration(opt)}
-                      className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-extrabold border-2 transition-colors cursor-pointer ${
-                        duration === opt
-                          ? 'bg-[#0F0F0F] text-[#EEA012] border-[#EEA012]'
-                          : 'bg-[#FFFFFF] text-[#0F0F0F] border-[#0F0F0F]/12 hover:border-[#0B92D6]'
-                      }`}
-                    >
-                      {opt}
-                    </button>
-                  )
-                )}
+                {[
+                  { val: '7 Days', label: t('7 Days', '7 دن') },
+                  { val: '10 Days', label: t('10 Days', '10 دن') },
+                  { val: '14 Days', label: t('14 Days', '14 دن') },
+                  { val: '21 Days', label: t('21 Days', '21 دن') },
+                  { val: 'Custom Dates', label: t('Custom Dates', 'کسٹم تاریخیں') },
+                ].map((opt) => (
+                  <button
+                    key={opt.val}
+                    type="button"
+                    onClick={() => setDuration(opt.val)}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-extrabold border-2 transition-colors cursor-pointer ${
+                      duration === opt.val
+                        ? 'bg-[#0F0F0F] text-[#EEA012] border-[#EEA012]'
+                        : 'bg-[#FFFFFF] text-[#0F0F0F] border-[#0F0F0F]/12 hover:border-[#0B92D6]'
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -125,26 +140,26 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Users className="w-3.5 h-3.5 text-[#0B92D6]" />
                 </SquircleIcon>
-                <span>2. Traveler Group</span>
+                <span>{t('2. Traveler Group', '2. مسافروں کی قسم')}</span>
               </label>
               <div className="space-y-1.5">
                 {[
-                  'Individual / Couple',
-                  'Family',
-                  'Family with Seniors',
-                  'Organized Group',
+                  { val: 'Individual / Couple', label: t('Individual / Couple', 'انفرادی / جوڑا') },
+                  { val: 'Family', label: t('Family', 'فیملی') },
+                  { val: 'Family with Seniors', label: t('Family with Seniors', 'بزرگوں کے ساتھ فیملی') },
+                  { val: 'Organized Group', label: t('Organized Group', 'منظم گروپ') },
                 ].map((opt) => (
                   <button
-                    key={opt}
+                    key={opt.val}
                     type="button"
-                    onClick={() => setGroupType(opt)}
+                    onClick={() => setGroupType(opt.val)}
                     className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-extrabold border-2 transition-colors cursor-pointer ${
-                      groupType === opt
+                      groupType === opt.val
                         ? 'bg-[#0F0F0F] text-[#EEA012] border-[#EEA012]'
                         : 'bg-[#FFFFFF] text-[#0F0F0F] border-[#0F0F0F]/12 hover:border-[#0B92D6]'
                     }`}
                   >
-                    {opt}
+                    {opt.label}
                   </button>
                 ))}
               </div>
@@ -156,26 +171,38 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Building2 className="w-3.5 h-3.5 text-[#EEA012]" />
                 </SquircleIcon>
-                <span>3. Hotel Preference</span>
+                <span>{t('3. Hotel Preference', '3. ہوٹل کی ترجیح')}</span>
               </label>
               <div className="space-y-1.5">
                 {[
-                  'Walking Distance / Near Haram',
-                  '5-Star Luxury Hospitality',
-                  '4-Star Comfort Selection',
-                  'Economy Plus with Shuttle',
+                  {
+                    val: 'Walking Distance / Near Haram',
+                    label: t('Walking Distance / Near Haram', 'واکنگ ڈسٹنس / حرم کے قریب'),
+                  },
+                  {
+                    val: '5-Star Luxury Hospitality',
+                    label: t('5-Star Luxury Hospitality', '5 اسٹار لگژری ہوٹل'),
+                  },
+                  {
+                    val: '4-Star Comfort Selection',
+                    label: t('4-Star Comfort Selection', '4 اسٹار کمفرٹ ہوٹل'),
+                  },
+                  {
+                    val: 'Economy Plus with Shuttle',
+                    label: t('Economy Plus with Shuttle', 'ایکانومی پلس (شٹل سروس)'),
+                  },
                 ].map((opt) => (
                   <button
-                    key={opt}
+                    key={opt.val}
                     type="button"
-                    onClick={() => setHotelPreference(opt)}
+                    onClick={() => setHotelPreference(opt.val)}
                     className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-extrabold border-2 transition-colors cursor-pointer ${
-                      hotelPreference === opt
+                      hotelPreference === opt.val
                         ? 'bg-[#0F0F0F] text-[#EEA012] border-[#EEA012]'
                         : 'bg-[#FFFFFF] text-[#0F0F0F] border-[#0F0F0F]/12 hover:border-[#0B92D6]'
                     }`}
                   >
-                    {opt}
+                    {opt.label}
                   </button>
                 ))}
               </div>
@@ -187,26 +214,38 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Car className="w-3.5 h-3.5 text-[#0B92D6]" />
                 </SquircleIcon>
-                <span>4. Ground Transport</span>
+                <span>{t('4. Ground Transport', '4. گراؤنڈ ٹرانسپورٹ')}</span>
               </label>
               <div className="space-y-1.5">
                 {[
-                  'Private Air-Conditioned Vehicle',
-                  'Executive Family SUV / Van',
-                  'Haramain High-Speed Train + Transfers',
-                  'Luxury Group Coach',
+                  {
+                    val: 'Private Air-Conditioned Vehicle',
+                    label: t('Private Air-Conditioned Vehicle', 'پرائیویٹ ایئر کنڈیشنڈ گاڑی'),
+                  },
+                  {
+                    val: 'Executive Family SUV / Van',
+                    label: t('Executive Family SUV / Van', 'ایگزیکٹو فیملی ایس یو وی / وین'),
+                  },
+                  {
+                    val: 'Haramain High-Speed Train + Transfers',
+                    label: t('Haramain High-Speed Train + Transfers', 'حرمین ہائی اسپیڈ ٹرین + ٹرانسفر'),
+                  },
+                  {
+                    val: 'Luxury Group Coach',
+                    label: t('Luxury Group Coach', 'لگژری گروپ کوچ'),
+                  },
                 ].map((opt) => (
                   <button
-                    key={opt}
+                    key={opt.val}
                     type="button"
-                    onClick={() => setTransportType(opt)}
+                    onClick={() => setTransportType(opt.val)}
                     className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-extrabold border-2 transition-colors cursor-pointer ${
-                      transportType === opt
+                      transportType === opt.val
                         ? 'bg-[#0F0F0F] text-[#EEA012] border-[#EEA012]'
                         : 'bg-[#FFFFFF] text-[#0F0F0F] border-[#0F0F0F]/12 hover:border-[#0B92D6]'
                     }`}
                   >
-                    {opt}
+                    {opt.label}
                   </button>
                 ))}
               </div>
@@ -217,8 +256,9 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
             <div className="flex items-center gap-3 text-xs font-bold text-[#0F0F0F]">
               <CheckCircle2 className="w-4 h-4 text-[#0B92D6] shrink-0" />
               <span>
-                Selected Configuration: <strong>{duration}</strong> ·{' '}
-                <strong>{groupType}</strong> · <strong>{hotelPreference}</strong>
+                {t('Selected Configuration:', 'منتخب کردہ ترتیب:')}{' '}
+                <strong>{duration}</strong> · <strong>{groupType}</strong> ·{' '}
+                <strong>{hotelPreference}</strong>
               </span>
             </div>
             <button
@@ -226,7 +266,7 @@ export const UmrahPage: React.FC<UmrahPageProps> = ({
               onClick={handleCustomBuild}
               className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#EEA012] hover:bg-[#0F0F0F] text-[#0F0F0F] hover:text-[#EEA012] text-xs sm:text-sm font-extrabold transition-colors cursor-pointer whitespace-nowrap"
             >
-              <span>Request Availability &amp; Pricing</span>
+              <span>{t('Request Availability & Pricing', 'دستیابی اور قیمت معلوم کریں')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

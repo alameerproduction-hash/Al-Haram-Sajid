@@ -1,4 +1,9 @@
-import { INLINE_IMAGES } from './inlineImages';
+import heroHaramAsset from '../assets/images/hero_makkah_custom.jpg';
+import madinahMosqueAsset from '../assets/images/madinah_prophet_mosque_1791294572353.jpg';
+import umrahSanctuaryAsset from '../assets/images/umrah_pilgrims_sanctuary_1791294584413.jpg';
+import luxuryHospitalityAsset from '../assets/images/luxury_makkah_hospitality_1791294596855.jpg';
+import arabianOasisAsset from '../assets/images/arabian_heritage_oasis_1791294608959.jpg';
+import ceoPortraitAsset from '../assets/images/ceo_sajid_kahloon.jpg';
 
 export type PageId =
   | 'home'
@@ -14,12 +19,14 @@ export type PageId =
   | 'admin';
 
 export const IMAGES = {
-  heroHaram: INLINE_IMAGES.heroHaram,
-  madinahMosque: INLINE_IMAGES.madinahMosque,
-  umrahSanctuary: INLINE_IMAGES.umrahSanctuary,
-  luxuryHospitality: INLINE_IMAGES.luxuryHospitality,
-  arabianOasis: INLINE_IMAGES.arabianOasis,
-  ceoPortrait: INLINE_IMAGES.ceoPortrait,
+  heroHaram:
+    'https://noorumrahtravels.co.uk/uploads/media/2026/04/places-to-visit-in-makkah-69d50a5aa940f.jpg',
+  heroHaramLocal: heroHaramAsset,
+  madinahMosque: madinahMosqueAsset,
+  umrahSanctuary: umrahSanctuaryAsset,
+  luxuryHospitality: luxuryHospitalityAsset,
+  arabianOasis: arabianOasisAsset,
+  ceoPortrait: ceoPortraitAsset,
 };
 
 export const OFFICE_LOCATION = {
@@ -27,7 +34,7 @@ export const OFFICE_LOCATION = {
   shortCity: 'Gujranwala, Pakistan',
   googleMapsUrl: 'https://maps.app.goo.gl/gYJr1yp4XncCRaAf6',
   embedMapUrl:
-    'https://maps.google.com/maps?q=Al%20Haram%20Travels%20%26%20Tours%20Gujranwala%20Pakistan&t=&z=14&ie=UTF8&iwloc=&output=embed',
+    'https://maps.google.com/maps?q=Al%20Harm%20Travels%20%26%20Tours%20Gujranwala%20Pakistan&t=&z=14&ie=UTF8&iwloc=&output=embed',
 };
 
 export interface ContactNumber {
@@ -46,7 +53,7 @@ export const CONTACT_NUMBERS: ContactNumber[] = [
     whatsappIntl: '923217455558',
     telHref: 'tel:+923217455558',
     whatsappHref:
-      'https://wa.me/923217455558?text=Assalamu%20Alaikum%20Al%20Haram%20Travels%20%26%20Tours%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.',
+      'https://wa.me/923217455558?text=Assalamu%20Alaikum%20Al%20Harm%20Travels%20%26%20Tours%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.',
     label: 'Primary Line & WhatsApp',
   },
   {
@@ -55,7 +62,7 @@ export const CONTACT_NUMBERS: ContactNumber[] = [
     whatsappIntl: '923267455558',
     telHref: 'tel:+923267455558',
     whatsappHref:
-      'https://wa.me/923267455558?text=Assalamu%20Alaikum%20Al%20Haram%20Travels%20%26%20Tours%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.',
+      'https://wa.me/923267455558?text=Assalamu%20Alaikum%20Al%20Harm%20Travels%20%26%20Tours%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.',
     label: 'Umrah & Tours Desk (Call & WhatsApp)',
   },
   {
@@ -64,7 +71,7 @@ export const CONTACT_NUMBERS: ContactNumber[] = [
     whatsappIntl: '923337455558',
     telHref: 'tel:+923337455558',
     whatsappHref:
-      'https://wa.me/923337455558?text=Assalamu%20Alaikum%20Al%20Haram%20Travels%20%26%20Tours%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.',
+      'https://wa.me/923337455558?text=Assalamu%20Alaikum%20Al%20Harm%20Travels%20%26%20Tours%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.',
     label: 'Executive Desk (Call & WhatsApp)',
   },
 ];
@@ -86,7 +93,7 @@ export const SOCIAL_LINKS: SocialLinkItem[] = [
   {
     id: 'tiktok',
     name: 'TikTok',
-    handle: '@AlHaramTravels',
+    handle: '@AlHarmTravels',
     url: 'https://vm.tiktok.com/ZS9D9o8b29hRc-gygEv/',
   },
   {

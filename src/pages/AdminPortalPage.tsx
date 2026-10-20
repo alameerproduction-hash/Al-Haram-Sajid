@@ -485,7 +485,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({
               </h2>
               <p className="text-xs font-semibold text-[#0F0F0F]/75">
                 Enter your authorized administrator credentials to access the Al
-                Haram Travels &amp; Tours management console.
+                Harm Travels &amp; Tours management console.
               </p>
             </div>
 
@@ -597,7 +597,7 @@ export const AdminPortalPage: React.FC<AdminPortalPageProps> = ({
               <span>Executive Control Center · CEO Sajid Kahloon</span>
             </div>
             <h1 className="font-display text-3xl sm:text-4xl font-extrabold">
-              AL HARAM ADMIN PORTAL
+              AL HARM ADMIN PORTAL
             </h1>
             <p className="text-xs sm:text-sm font-bold text-[#FFFFFF]/80">
               Manage pilgrim booking inquiries, customize Umrah packages, and

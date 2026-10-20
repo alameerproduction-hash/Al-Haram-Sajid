@@ -10,7 +10,6 @@ import {
   Navigation,
 } from 'lucide-react';
 import {
-  CONTACT_NUMBERS,
   SOCIAL_LINKS,
   IMAGES,
   OFFICE_LOCATION,
@@ -19,8 +18,12 @@ import { SquircleIcon } from '../components/SquircleIcon';
 import { BrandSocialIcon } from '../components/SocialIcons';
 import { ResilientImage } from '../components/ResilientImage';
 import { InquiryFormSection } from '../components/InquiryFormSection';
+import { useLanguage } from '../context/LanguageContext';
 
 export const ContactPage: React.FC = () => {
+  const { t, getContactNumbers } = useLanguage();
+  const contactNumbers = getContactNumbers();
+
   return (
     <div className="pt-24">
       {/* Header */}
@@ -32,16 +35,17 @@ export const ContactPage: React.FC = () => {
                 <MapPin className="w-4 h-4 text-[#0B92D6]" />
               </SquircleIcon>
               <span className="tracking-[0.18em] uppercase">
-                Connect With Our Gujranwala Office
+                {t('Connect With Our Gujranwala Office', 'ہمارے گوجرانوالہ آفس سے رابطہ کریں')}
               </span>
             </div>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              AL HARAM TRAVELS &amp; TOURS
+              {t('AL HARM TRAVELS & TOURS', 'الحرم ٹریولز اینڈ ٹورز')}
             </h1>
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/85 leading-relaxed">
-              We are here to assist you with Umrah packages, visa
-              documentation, and customized international travel. All 3 official
-              numbers are active on Phone &amp; WhatsApp.
+              {t(
+                'We are here to assist you with Umrah packages, visa documentation, and customized international travel. All 3 official numbers are active on Phone & WhatsApp.',
+                'ہم عمرہ پیکجز، ویزا دستاویزات اور کسٹمائزڈ بین الاقوامی سفر میں آپ کی مدد کے لیے حاضر ہیں۔ ہمارے تینوں آفیشل نمبرز فون اور واٹس ایپ پر فعال ہیں۔'
+              )}
             </p>
           </div>
         </div>
@@ -55,20 +59,20 @@ export const ContactPage: React.FC = () => {
             <div className="w-16 h-16 rounded-[18px] overflow-hidden border-2 border-[#EEA012] shadow-md shrink-0 bg-[#0F0F0F]">
               <ResilientImage
                 src={IMAGES.ceoPortrait}
-                alt="Sajid Kahloon — CEO Al Haram Travels & Tours"
+                alt="Sajid Kahloon — CEO Al Harm Travels & Tours"
                 fallbackTitle="SK"
                 className="w-full h-full object-cover object-top"
               />
             </div>
             <div>
               <p className="text-xs font-extrabold text-[#0B92D6] uppercase tracking-wider">
-                Chief Executive Officer
+                {t('Chief Executive Officer', 'چیف ایگزیکٹو آفیسر')}
               </p>
               <h2 className="font-display text-xl font-extrabold text-[#0F0F0F] mt-0.5">
-                Sajid Kahloon
+                {t('Sajid Kahloon', 'ساجد کہلوں')}
               </h2>
               <p className="text-xs font-bold text-[#0F0F0F]/80 mt-0.5">
-                CEO — Al Haram Travels &amp; Tours
+                {t('CEO — Al Harm Travels & Tours', 'سی ای او — الحرم ٹریولز اینڈ ٹورز')}
               </p>
             </div>
           </div>
@@ -79,10 +83,13 @@ export const ContactPage: React.FC = () => {
             </SquircleIcon>
             <div>
               <p className="text-xs font-extrabold text-[#0B92D6] uppercase tracking-wider">
-                Professional Recognition
+                {t('Professional Recognition', 'پیشہ ورانہ شناخت')}
               </p>
               <h2 className="font-display text-base font-extrabold text-[#0F0F0F] mt-0.5">
-                Member of Gujranwala Chamber of Commerce &amp; Industry
+                {t(
+                  'Member of Gujranwala Chamber of Commerce & Industry',
+                  'ممبر گوجرانوالہ چیمبر آف کامرس اینڈ انڈسٹری'
+                )}
               </h2>
             </div>
           </div>
@@ -93,10 +100,10 @@ export const ContactPage: React.FC = () => {
             </SquircleIcon>
             <div>
               <p className="text-xs font-extrabold text-[#0B92D6] uppercase tracking-wider">
-                Industry Leadership
+                {t('Industry Leadership', 'صنعتی قیادت')}
               </p>
               <h2 className="font-display text-lg font-extrabold text-[#0F0F0F] mt-0.5">
-                Chairman — Travel &amp; Tour
+                {t('Chairman — Travel & Tour', 'چیئرمین — ٹریول اینڈ ٹور')}
               </h2>
             </div>
           </div>
@@ -106,15 +113,15 @@ export const ContactPage: React.FC = () => {
         <div>
           <div className="mb-6">
             <p className="text-xs font-extrabold tracking-[0.2em] text-[#0B92D6] uppercase">
-              Direct Phone &amp; WhatsApp Lines
+              {t('Direct Phone & WhatsApp Lines', 'براہِ راست فون اور واٹس ایپ نمبرز')}
             </p>
             <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F0F0F] mt-1">
-              CALL OR WHATSAPP US DIRECTLY
+              {t('CALL OR WHATSAPP US DIRECTLY', 'ہمیں براہِ راست کال یا واٹس ایپ کریں')}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {CONTACT_NUMBERS.map((num, idx) => (
+            {contactNumbers.map((num, idx) => (
               <div
                 key={num.raw}
                 className="group rounded-3xl bg-[#FFFFFF] border-2 border-[#0F0F0F]/12 p-6 sm:p-7 shadow-sm hover:border-[#EEA012] transition-all duration-200 flex flex-col justify-between space-y-6"
@@ -131,7 +138,10 @@ export const ContactPage: React.FC = () => {
                       {num.display}
                     </a>
                     <p className="text-xs font-bold text-[#0F0F0F]/75">
-                      Available for Voice Call &amp; WhatsApp Chat
+                      {t(
+                        'Available for Voice Call & WhatsApp Chat',
+                        'وائس کال اور واٹس ایپ چیٹ کے لیے دستیاب'
+                      )}
                     </p>
                   </div>
                   <SquircleIcon variant={idx === 0 ? 'gold' : 'light'} size="md">
@@ -149,7 +159,7 @@ export const ContactPage: React.FC = () => {
                     className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#0F0F0F] text-[#FFFFFF] hover:bg-[#0B92D6] text-xs font-extrabold transition-colors whitespace-nowrap"
                   >
                     <Phone className="w-3.5 h-3.5 text-[#EEA012]" />
-                    <span>Call Now</span>
+                    <span>{t('Call Now', 'کال کریں')}</span>
                   </a>
                   <a
                     href={num.whatsappHref}
@@ -158,7 +168,7 @@ export const ContactPage: React.FC = () => {
                     className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#EEA012] text-[#0F0F0F] hover:bg-[#0B92D6] hover:text-[#FFFFFF] text-xs font-extrabold transition-colors whitespace-nowrap"
                   >
                     <MessageCircle className="w-3.5 h-3.5" />
-                    <span>WhatsApp</span>
+                    <span>{t('WhatsApp', 'واٹس ایپ')}</span>
                   </a>
                 </div>
               </div>
@@ -184,19 +194,21 @@ export const ContactPage: React.FC = () => {
                   <ArrowUpRight className="w-4 h-4 text-[#EEA012] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
                 <h3 className="font-display text-lg font-extrabold text-[#0F0F0F]">
-                  Office Location
+                  {t('Office Location', 'دفتر کا پتہ')}
                 </h3>
                 <p className="text-xs font-extrabold text-[#0B92D6]">
-                  {OFFICE_LOCATION.shortCity}
+                  {t(OFFICE_LOCATION.shortCity, 'گوجرانوالہ، پاکستان')}
                 </p>
                 <p className="text-xs font-semibold text-[#0F0F0F]/80 leading-relaxed">
-                  Click to open our official office pin on Google Maps for
-                  turn-by-turn directions.
+                  {t(
+                    'Click to open our official office pin on Google Maps for turn-by-turn directions.',
+                    'راستے کی رہنمائی کے لیے گوگل میپس پر ہمارا آفیشل پن کھولنے کے لیے کلک کریں۔'
+                  )}
                 </p>
               </div>
               <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#0F0F0F] group-hover:text-[#0B92D6] pt-2">
                 <Navigation className="w-3.5 h-3.5 text-[#EEA012]" />
-                <span>Open in Google Maps</span>
+                <span>{t('Open in Google Maps', 'گوگل میپس میں کھولیں')}</span>
               </span>
             </a>
 
@@ -205,14 +217,16 @@ export const ContactPage: React.FC = () => {
                 <Clock className="w-5 h-5 text-[#EEA012]" />
               </SquircleIcon>
               <h3 className="font-display text-lg font-extrabold text-[#0F0F0F]">
-                Business Hours
+                {t('Business Hours', 'دفتری اوقات')}
               </h3>
               <p className="text-xs font-extrabold text-[#EEA012]">
-                Monday — Saturday
+                {t('Monday — Saturday', 'پیر تا ہفتہ')}
               </p>
               <p className="text-xs font-semibold text-[#0F0F0F]/80 leading-relaxed">
-                Dedicated consultation hours for pilgrims, families &amp; group
-                organizers.
+                {t(
+                  'Dedicated consultation hours for pilgrims, families & group organizers.',
+                  'عازمین، فیملیز اور گروپ آرگنائزرز کے لیے مشاورت کے خصوصی اوقات۔'
+                )}
               </p>
             </div>
           </div>
@@ -221,10 +235,13 @@ export const ContactPage: React.FC = () => {
           <div className="lg:col-span-7 rounded-3xl bg-[#0F0F0F] text-[#FFFFFF] border-2 border-[#EEA012] p-6 sm:p-8 bg-islamic-pattern-dark flex flex-col justify-between space-y-6">
             <div>
               <p className="text-xs font-extrabold tracking-[0.2em] text-[#EEA012] uppercase">
-                Follow CEO Sajid Kahloon &amp; Al Haram Travels
+                {t(
+                  'Follow CEO Sajid Kahloon & Al Harm Travels & Tours',
+                  'سی ای او ساجد کہلوں اور الحرم ٹریولز اینڈ ٹورز کو فالو کریں'
+                )}
               </p>
               <h3 className="font-display text-2xl font-extrabold text-[#FFFFFF] mt-1">
-                OFFICIAL SOCIAL MEDIA CHANNELS
+                {t('OFFICIAL SOCIAL MEDIA CHANNELS', 'آفیشل سوشل میڈیا چینلز')}
               </h3>
             </div>
 
@@ -269,10 +286,10 @@ export const ContactPage: React.FC = () => {
               </SquircleIcon>
               <div>
                 <p className="text-xs font-extrabold tracking-[0.18em] text-[#0B92D6] uppercase">
-                  Visit Our Office · Gujranwala
+                  {t('Visit Our Office · Gujranwala', 'ہمارے دفتر تشریف لائیں · گوجرانوالہ')}
                 </p>
                 <h2 className="font-display text-xl sm:text-2xl font-extrabold text-[#FFFFFF] mt-0.5">
-                  OFFICIAL GOOGLE MAPS LOCATION
+                  {t('OFFICIAL GOOGLE MAPS LOCATION', 'گوگل میپس پر آفیشل لوکیشن')}
                 </h2>
               </div>
             </div>
@@ -284,14 +301,14 @@ export const ContactPage: React.FC = () => {
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#EEA012] hover:bg-[#0B92D6] text-[#0F0F0F] hover:text-[#FFFFFF] text-xs font-extrabold transition-colors whitespace-nowrap shrink-0"
             >
               <Navigation className="w-4 h-4" />
-              <span>Get Directions on Google Maps</span>
+              <span>{t('Get Directions on Google Maps', 'گوگل میپس پر راستہ دیکھیں')}</span>
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
 
           <div className="relative h-80 sm:h-96 w-full bg-[#F4F8FB]">
             <iframe
-              title="Al Haram Travels & Tours Gujranwala Office Map"
+              title="Al Harm Travels & Tours Gujranwala Office Map"
               src={OFFICE_LOCATION.embedMapUrl}
               className="w-full h-full border-0"
               loading="lazy"
@@ -303,8 +320,11 @@ export const ContactPage: React.FC = () => {
         {/* Full Inquiry Form: SEND US AN INQUIRY */}
         <div className="pt-4">
           <InquiryFormSection
-            heading="SEND US AN INQUIRY"
-            subheading="Complete the form below and our travel specialists in Gujranwala will contact you directly."
+            heading={t('SEND US AN INQUIRY', 'ہمیں اپنی سفری درخواست بھیجیں')}
+            subheading={t(
+              'Complete the form below and our travel specialists in Gujranwala will contact you directly.',
+              'نیچے دیا گیا فارم پر کریں اور گوجرانوالہ میں ہمارے سفری ماہرین براہِ راست آپ سے رابطہ کریں گے۔'
+            )}
           />
         </div>
       </section>

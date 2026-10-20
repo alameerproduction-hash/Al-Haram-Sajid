@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { SquircleIcon } from '../components/SquircleIcon';
 import { TestimonialsSection } from '../components/SharedSections';
+import { useLanguage } from '../context/LanguageContext';
 
 interface UserReview {
   id: string;
@@ -19,6 +20,7 @@ interface UserReview {
 }
 
 export const ReviewsPage: React.FC = () => {
+  const { t } = useLanguage();
   const [userReviews, setUserReviews] = useState<UserReview[]>([]);
   const [name, setName] = useState('');
   const [journeyType, setJourneyType] = useState('Umrah Journey');
@@ -79,15 +81,20 @@ export const ReviewsPage: React.FC = () => {
                 <Star className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <span className="tracking-[0.18em] uppercase">
-                Verified Pilgrim &amp; Traveler Reflections
+                {t(
+                  'Verified Pilgrim & Traveler Reflections',
+                  'عازمین اور مسافروں کے تصدیق شدہ تاثرات'
+                )}
               </span>
             </div>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              REVIEWS &amp; TESTIMONIALS
+              {t('REVIEWS & TESTIMONIALS', 'آراء اور تاثرات')}
             </h1>
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/85 leading-relaxed">
-              We value honest, authentic feedback from the pilgrims and families
-              we serve.
+              {t(
+                'We value honest, authentic feedback from the pilgrims and families we serve.',
+                'ہم ان عازمین اور فیملیز کی مخلصانہ اور حقیقی آراء کی قدر کرتے ہیں جن کی ہمیں خدمت کرنے کا موقع ملتا ہے۔'
+              )}
             </p>
           </div>
         </div>
@@ -100,7 +107,7 @@ export const ReviewsPage: React.FC = () => {
       {userReviews.length > 0 && (
         <section className="pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-2xl font-extrabold text-[#0F0F0F] mb-6">
-            Recently Submitted Reflections
+            {t('Recently Submitted Reflections', 'حال ہی میں بھیجے گئے تاثرات')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {userReviews.map((rev) => (
@@ -136,10 +143,13 @@ export const ReviewsPage: React.FC = () => {
           <div className="rounded-3xl bg-[#FFFFFF] border-2 border-[#0F0F0F]/12 p-6 sm:p-10 shadow-sm">
             <div className="mb-6">
               <p className="text-xs font-extrabold tracking-[0.2em] text-[#0B92D6] uppercase mb-1">
-                Traveled With Al Haram?
+                {t(
+                  'Traveled With Al Harm Travels & Tours?',
+                  'کیا آپ نے الحرم ٹریولز اینڈ ٹورز کے ساتھ سفر کیا ہے؟'
+                )}
               </p>
               <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F0F0F]">
-                SHARE YOUR JOURNEY FEEDBACK
+                {t('SHARE YOUR JOURNEY FEEDBACK', 'اپنے سفر کے تاثرات شیئر کریں')}
               </h2>
             </div>
 
@@ -151,10 +161,16 @@ export const ReviewsPage: React.FC = () => {
                   </SquircleIcon>
                   <div>
                     <p className="font-display text-base font-extrabold text-[#0F0F0F]">
-                      Thank you for sharing your review.
+                      {t(
+                        'Thank you for sharing your review.',
+                        'اپنی رائے شیئر کرنے کا شکریہ۔'
+                      )}
                     </p>
                     <p className="text-xs font-bold text-[#0F0F0F]/75">
-                      Your reflection has been recorded above.
+                      {t(
+                        'Your reflection has been recorded above.',
+                        'آپ کے تاثرات اوپر شامل کر دیے گئے ہیں۔'
+                      )}
                     </p>
                   </div>
                 </div>
@@ -163,7 +179,7 @@ export const ReviewsPage: React.FC = () => {
                   onClick={() => setSubmitted(false)}
                   className="px-4 py-2 rounded-xl bg-[#0F0F0F] text-[#EEA012] text-xs font-extrabold cursor-pointer"
                 >
-                  Write Another
+                  {t('Write Another', 'مزید لکھیں')}
                 </button>
               </div>
             ) : (
@@ -177,7 +193,7 @@ export const ReviewsPage: React.FC = () => {
                       <SquircleIcon variant="light" size="sm">
                         <User className="w-3.5 h-3.5 text-[#0F0F0F]" />
                       </SquircleIcon>
-                      <span>Your Name *</span>
+                      <span>{t('Your Name *', 'آپ کا نام *')}</span>
                     </label>
                     <input
                       id="rev-name"
@@ -185,7 +201,7 @@ export const ReviewsPage: React.FC = () => {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter your full name"
+                      placeholder={t('Enter your full name', 'اپنا پورا نام لکھیں')}
                       className="w-full rounded-xl bg-[#FFFFFF] border-2 border-[#0F0F0F]/15 px-4 py-3 text-sm font-bold text-[#0F0F0F] focus:outline-none focus:border-[#EEA012]"
                     />
                   </div>
@@ -198,7 +214,7 @@ export const ReviewsPage: React.FC = () => {
                       <SquircleIcon variant="light" size="sm">
                         <Star className="w-3.5 h-3.5 text-[#EEA012]" />
                       </SquircleIcon>
-                      <span>Journey Type</span>
+                      <span>{t('Journey Type', 'سفر کی قسم')}</span>
                     </label>
                     <select
                       id="rev-type"
@@ -206,10 +222,12 @@ export const ReviewsPage: React.FC = () => {
                       onChange={(e) => setJourneyType(e.target.value)}
                       className="w-full rounded-xl bg-[#FFFFFF] border-2 border-[#0F0F0F]/15 px-4 py-3 text-sm font-bold text-[#0F0F0F] focus:outline-none focus:border-[#EEA012]"
                     >
-                      <option value="Umrah Journey">Umrah Journey</option>
-                      <option value="Family Umrah">Family Umrah</option>
-                      <option value="Group Umrah">Group Umrah</option>
-                      <option value="International Tour">International Tour</option>
+                      <option value="Umrah Journey">{t('Umrah Journey', 'سفرِ عمرہ')}</option>
+                      <option value="Family Umrah">{t('Family Umrah', 'فیملی عمرہ')}</option>
+                      <option value="Group Umrah">{t('Group Umrah', 'گروپ عمرہ')}</option>
+                      <option value="International Tour">
+                        {t('International Tour', 'بین الاقوامی ٹور')}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -222,7 +240,7 @@ export const ReviewsPage: React.FC = () => {
                     <SquircleIcon variant="light" size="sm">
                       <MessageSquare className="w-3.5 h-3.5 text-[#0B92D6]" />
                     </SquircleIcon>
-                    <span>Your Review *</span>
+                    <span>{t('Your Review *', 'آپ کی رائے *')}</span>
                   </label>
                   <textarea
                     id="rev-comment"
@@ -230,7 +248,10 @@ export const ReviewsPage: React.FC = () => {
                     required
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
-                    placeholder="Share your experience with Al Haram Travels & Tours..."
+                    placeholder={t(
+                      'Share your experience with Al Harm Travels & Tours...',
+                      'الحرم ٹریولز اینڈ ٹورز کے ساتھ اپنے تجربے کے بارے میں لکھیں...'
+                    )}
                     className="w-full rounded-xl bg-[#FFFFFF] border-2 border-[#0F0F0F]/15 p-4 text-sm font-bold text-[#0F0F0F] focus:outline-none focus:border-[#EEA012]"
                   />
                 </div>
@@ -240,7 +261,7 @@ export const ReviewsPage: React.FC = () => {
                     type="submit"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#EEA012] hover:bg-[#0F0F0F] text-[#0F0F0F] hover:text-[#EEA012] text-xs font-extrabold transition-colors cursor-pointer"
                   >
-                    <span>Submit Review</span>
+                    <span>{t('Submit Review', 'رائے جمع کروائیں')}</span>
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </div>

@@ -7,6 +7,7 @@ import {
   LeadershipExecutiveSection,
   TrustStripSection,
 } from '../components/SharedSections';
+import { useLanguage } from '../context/LanguageContext';
 
 interface WhyChooseUsPageProps {
   onNavigate: (page: PageId) => void;
@@ -15,6 +16,8 @@ interface WhyChooseUsPageProps {
 export const WhyChooseUsPage: React.FC<WhyChooseUsPageProps> = ({
   onNavigate,
 }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="pt-24">
       {/* Header */}
@@ -26,16 +29,20 @@ export const WhyChooseUsPage: React.FC<WhyChooseUsPageProps> = ({
                 <Award className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <span className="tracking-[0.18em] uppercase">
-                The Al Haram Standard · Gujranwala
+                {t('The Al Harm Standard · Gujranwala', 'الحرم کا اعلیٰ معیار · گوجرانوالہ')}
               </span>
             </div>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              Why Travel With Al Haram?
+              {t(
+                'Why Travel With Al Harm Travels & Tours?',
+                'الحرم ٹریولز اینڈ ٹورز کے ساتھ سفر کیوں کریں؟'
+              )}
             </h1>
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/85 leading-relaxed">
-              When embarking on a sacred pilgrimage or family tour, trust and
-              organization matter above all else. Discover what sets Al Haram
-              Travels &amp; Tours apart.
+              {t(
+                'When embarking on a sacred pilgrimage or family tour, trust and organization matter above all else. Discover what sets Al Harm Travels & Tours apart.',
+                'مقدس سفرِ عمرہ یا فیملی ٹور پر روانہ ہوتے وقت اعتماد اور بہترین انتظام سب سے اہم ہوتا ہے۔ جانیے وہ خصوصیات جو الحرم ٹریولز اینڈ ٹورز کو منفرد بناتی ہیں۔'
+              )}
             </p>
           </div>
         </div>
@@ -54,11 +61,16 @@ export const WhyChooseUsPage: React.FC<WhyChooseUsPageProps> = ({
         <div className="rounded-3xl bg-[#FFF9EB] border-2 border-[#EEA012] p-8 sm:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F0F0F]">
-              Begin Planning Your Journey With Us Today
+              {t(
+                'Begin Planning Your Journey With Us Today',
+                'آج ہی ہمارے ساتھ اپنے سفر کی منصوبہ بندی شروع کریں'
+              )}
             </h2>
             <p className="text-sm font-bold text-[#0F0F0F]/80">
-              Speak directly with our travel advisors for customized Umrah, family,
-              and international tour arrangements.
+              {t(
+                'Speak directly with our travel advisors for customized Umrah, family, and international tour arrangements.',
+                'کسٹمائزڈ عمرہ، فیملی اور بین الاقوامی ٹور کے انتظامات کے لیے ہمارے سفری مشیروں سے براہِ راست بات کریں۔'
+              )}
             </p>
           </div>
           <button
@@ -66,7 +78,7 @@ export const WhyChooseUsPage: React.FC<WhyChooseUsPageProps> = ({
             onClick={() => onNavigate('book')}
             className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl bg-[#0F0F0F] hover:bg-[#0B92D6] text-[#EEA012] hover:text-[#FFFFFF] text-sm font-extrabold transition-colors cursor-pointer whitespace-nowrap"
           >
-            <span>Plan Your Journey</span>
+            <span>{t('Plan Your Journey', 'اپنے سفر کی منصوبہ بندی کریں')}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageId, UmrahPackage } from './data/siteData';
+import { LanguageProvider } from './context/LanguageContext';
 import { WelcomeOverlay } from './components/WelcomeOverlay';
 import { ScrollProgressBar } from './components/ScrollProgressBar';
 import { Navbar } from './components/Navbar';
@@ -22,17 +23,17 @@ import { BookPage } from './pages/BookPage';
 import { AdminPortalPage } from './pages/AdminPortalPage';
 
 const PAGE_TITLES: Record<PageId, string> = {
-  home: 'Al Haram Travels & Tours — Premium Umrah & Travel Services | Gujranwala',
-  about: 'About Us & Leadership | Al Haram Travels & Tours Gujranwala',
-  umrah: 'Customized Umrah Packages | Al Haram Travels & Tours Gujranwala',
-  tours: 'International, Family & Group Tours | Al Haram Travels & Tours',
-  services: 'Umrah Visa, Flight, Hotel & Ziyarat Services | Al Haram Travels',
-  'why-choose-us': 'Why Choose Al Haram Travels & Tours | Trusted Leadership',
-  gallery: 'Makkah, Madinah & Umrah Gallery | Al Haram Travels & Tours',
-  reviews: 'Client Reviews & Testimonials | Al Haram Travels & Tours',
-  contact: 'Contact Our Gujranwala Office | Al Haram Travels & Tours',
-  book: 'Book Your Journey & Request Availability | Al Haram Travels & Tours',
-  admin: 'Executive Admin Portal | Al Haram Travels & Tours',
+  home: 'Al Harm Travels & Tours — Premium Umrah & Travel Services | Gujranwala',
+  about: 'About Us & Leadership | Al Harm Travels & Tours Gujranwala',
+  umrah: 'Customized Umrah Packages | Al Harm Travels & Tours Gujranwala',
+  tours: 'International, Family & Group Tours | Al Harm Travels & Tours',
+  services: 'Umrah Visa, Flight, Hotel & Ziyarat Services | Al Harm Travels & Tours',
+  'why-choose-us': 'Why Choose Al Harm Travels & Tours | Trusted Leadership',
+  gallery: 'Makkah, Madinah & Umrah Gallery | Al Harm Travels & Tours',
+  reviews: 'Client Reviews & Testimonials | Al Harm Travels & Tours',
+  contact: 'Contact Our Gujranwala Office | Al Harm Travels & Tours',
+  book: 'Book Your Journey & Request Availability | Al Harm Travels & Tours',
+  admin: 'Executive Admin Portal | Al Harm Travels & Tours',
 };
 
 export default function App() {
@@ -124,41 +125,43 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FFFFFF] text-[#0F0F0F] font-semibold">
-      <ScrollProgressBar />
+    <LanguageProvider>
+      <div className="min-h-screen flex flex-col bg-[#FFFFFF] text-[#0F0F0F] font-semibold">
+        <ScrollProgressBar />
 
-      {showWelcome && (
-        <WelcomeOverlay onComplete={() => setShowWelcome(false)} />
-      )}
+        {showWelcome && (
+          <WelcomeOverlay onComplete={() => setShowWelcome(false)} />
+        )}
 
-      <Navbar
-        currentPage={currentPage}
-        onNavigate={handleNavigate}
-        hasHeroBackdrop={currentPage === 'home'}
-      />
+        <Navbar
+          currentPage={currentPage}
+          onNavigate={handleNavigate}
+          hasHeroBackdrop={currentPage === 'home'}
+        />
 
-      <main className="flex-1">{renderPage()}</main>
+        <main className="flex-1">{renderPage()}</main>
 
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenLegalModal={(type) => setLegalModal(type)}
-        onReplayIntro={() => setShowWelcome(true)}
-      />
+        <Footer
+          onNavigate={handleNavigate}
+          onOpenLegalModal={(type) => setLegalModal(type)}
+          onReplayIntro={() => setShowWelcome(true)}
+        />
 
-      <WhatsAppButton onNavigate={handleNavigate} />
+        <WhatsAppButton onNavigate={handleNavigate} />
 
-      <PackageDetailModal
-        pkg={selectedPackage}
-        onClose={() => setSelectedPackage(null)}
-        onBookPackage={(pkg) =>
-          handleInquireWithPreset({
-            travelType: 'Umrah',
-            packageName: pkg.name,
-          })
-        }
-      />
+        <PackageDetailModal
+          pkg={selectedPackage}
+          onClose={() => setSelectedPackage(null)}
+          onBookPackage={(pkg) =>
+            handleInquireWithPreset({
+              travelType: 'Umrah',
+              packageName: pkg.name,
+            })
+          }
+        />
 
-      <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />
-    </div>
+        <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />
+      </div>
+    </LanguageProvider>
   );
 }

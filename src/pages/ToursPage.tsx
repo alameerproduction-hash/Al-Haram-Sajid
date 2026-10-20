@@ -8,17 +8,25 @@ import { TOUR_CATEGORIES } from '../data/siteData';
 import { SquircleIcon } from '../components/SquircleIcon';
 import { ResilientImage } from '../components/ResilientImage';
 import { InquiryPreset } from '../components/InquiryFormSection';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ToursPageProps {
   onInquireWithPreset: (preset: InquiryPreset) => void;
 }
 
 export const ToursPage: React.FC<ToursPageProps> = ({ onInquireWithPreset }) => {
+  const { t, getTourCategories } = useLanguage();
   const [selectedFilter, setSelectedFilter] = useState<string>('All');
 
-  const filters = ['All', 'Tours', 'Bookings & Logistics'];
+  const filters = [
+    { id: 'All', label: t('All', 'تمام') },
+    { id: 'Tours', label: t('Tours', 'ٹورز') },
+    { id: 'Bookings & Logistics', label: t('Bookings & Logistics', 'بکنگ اور لاجسٹکس') },
+  ];
 
-  const filteredCategories = TOUR_CATEGORIES.filter((item) => {
+  const categories = getTourCategories();
+
+  const filteredCategories = categories.filter((item) => {
     if (selectedFilter === 'All') return true;
     if (selectedFilter === 'Tours') {
       return ['international-tours', 'family-tours', 'group-tours', 'customized-plans'].includes(
@@ -41,16 +49,17 @@ export const ToursPage: React.FC<ToursPageProps> = ({ onInquireWithPreset }) => 
                 <Globe className="w-4 h-4 text-[#0B92D6]" />
               </SquircleIcon>
               <span className="tracking-[0.18em] uppercase">
-                Beyond Umrah · Complete Travel Solutions
+                {t('Beyond Umrah · Complete Travel Solutions', 'عمرہ کے علاوہ · مکمل سفری سہولیات')}
               </span>
             </div>
             <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight">
-              TRAVEL &amp; TOURS
+              {t('TRAVEL & TOURS', 'ٹریول اینڈ ٹورز')}
             </h1>
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/85 leading-relaxed">
-              From international family holidays and group delegations to global
-              hotel reservations, flight ticketing, and visa assistance—managed
-              with corporate reliability in Gujranwala.
+              {t(
+                'From international family holidays and group delegations to global hotel reservations, flight ticketing, and visa assistance—managed with corporate reliability in Gujranwala.',
+                'بین الاقوامی فیملی تعطیلات اور گروپ وفود سے لے کر عالمی ہوٹل ریزرویشن، فلائٹ ٹکٹنگ اور ویزا اسسٹنس تک—گوجرانوالہ میں کارپوریٹ اعتماد کے ساتھ۔'
+              )}
             </p>
           </div>
         </div>
@@ -61,10 +70,10 @@ export const ToursPage: React.FC<ToursPageProps> = ({ onInquireWithPreset }) => 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
           <div>
             <p className="text-xs font-extrabold tracking-[0.2em] text-[#0B92D6] uppercase">
-              8 Specialized Travel Divisions
+              {t('8 Specialized Travel Divisions', '8 خصوصی سفری شعبہ جات')}
             </p>
             <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F0F0F] mt-1">
-              Explore Our Travel &amp; Tour Solutions
+              {t('Explore Our Travel & Tour Solutions', 'ہماری سفری اور سیاحتی سہولیات دیکھیں')}
             </h2>
           </div>
 
@@ -72,16 +81,16 @@ export const ToursPage: React.FC<ToursPageProps> = ({ onInquireWithPreset }) => 
           <div className="inline-flex items-center gap-1 p-1.5 rounded-xl bg-[#FFF9EB] border-2 border-[#EEA012]/50 self-start">
             {filters.map((tab) => (
               <button
-                key={tab}
+                key={tab.id}
                 type="button"
-                onClick={() => setSelectedFilter(tab)}
+                onClick={() => setSelectedFilter(tab.id)}
                 className={`px-3.5 py-2 rounded-lg text-xs font-extrabold transition-colors cursor-pointer whitespace-nowrap ${
-                  selectedFilter === tab
+                  selectedFilter === tab.id
                     ? 'bg-[#0F0F0F] text-[#EEA012] shadow-sm'
                     : 'text-[#0F0F0F]/80 hover:text-[#0B92D6]'
                 }`}
               >
-                {tab}
+                {tab.label}
               </button>
             ))}
           </div>
@@ -146,7 +155,7 @@ export const ToursPage: React.FC<ToursPageProps> = ({ onInquireWithPreset }) => 
                   }
                   className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0F0F0F] hover:bg-[#EEA012] text-[#EEA012] hover:text-[#0F0F0F] text-xs font-extrabold transition-colors cursor-pointer whitespace-nowrap"
                 >
-                  <span>Plan {item.title}</span>
+                  <span>{t(`Plan ${item.title}`, `${item.title} پلان کریں`)}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>

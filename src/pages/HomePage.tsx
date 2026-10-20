@@ -19,6 +19,7 @@ import {
   TestimonialsSection,
 } from '../components/SharedSections';
 import { InquiryFormSection, InquiryPreset } from '../components/InquiryFormSection';
+import { useLanguage } from '../context/LanguageContext';
 
 interface HomePageProps {
   onNavigate: (page: PageId) => void;
@@ -31,20 +32,28 @@ export const HomePage: React.FC<HomePageProps> = ({
   onSelectPackage,
   onInquireWithPreset,
 }) => {
+  const { t } = useLanguage();
+
   return (
     <div>
       {/* 5. HERO SECTION */}
-      <section className="relative min-h-[88vh] flex items-center pt-28 pb-24 lg:py-32 overflow-hidden bg-[#0F0F0F]">
+      <section
+        className="relative min-h-[88vh] flex items-center pt-28 pb-24 lg:py-32 overflow-hidden bg-[#0F0F0F] bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://noorumrahtravels.co.uk/uploads/media/2026/04/places-to-visit-in-makkah-69d50a5aa940f.jpg')",
+        }}
+      >
         {/* Background Cinematic Visual of Masjid al-Haram & Kaaba */}
         <div className="absolute inset-0 z-0">
           <ResilientImage
-            src={IMAGES.heroHaram}
+            src="https://noorumrahtravels.co.uk/uploads/media/2026/04/places-to-visit-in-makkah-69d50a5aa940f.jpg"
             alt="Masjid al-Haram and the Holy Kaaba in Makkah at golden evening light"
-            className="w-full h-full object-cover object-center scale-105"
+            className="w-full h-full object-cover object-center"
           />
-          {/* Rich Black (#0F0F0F) Contrast Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0F0F0F]/95 via-[#0F0F0F]/82 to-[#0F0F0F]/45" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-[#0F0F0F]/40" />
+          {/* Balanced Contrast Overlay so the Makkah image is clearly visible behind the text */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F0F0F]/85 via-[#0F0F0F]/60 to-[#0F0F0F]/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F]/90 via-transparent to-[#0F0F0F]/30" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -55,23 +64,33 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <ShieldCheck className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <span className="tracking-[0.16em] uppercase">
-                Trusted Travel &amp; Umrah Services · Gujranwala, Pakistan
+                {t(
+                  'Trusted Travel & Umrah Services · Gujranwala, Pakistan',
+                  'معتبر عمرہ اور ٹریول سروسز · گوجرانوالہ، پاکستان'
+                )}
               </span>
             </div>
 
             <div className="space-y-3">
               <p className="text-xs sm:text-sm font-extrabold tracking-[0.24em] text-[#0B92D6] uppercase">
-                YOUR JOURNEY OF FAITH STARTS HERE
+                {t(
+                  'YOUR JOURNEY OF FAITH STARTS HERE',
+                  'آپ کے روحانی اور بابرکت سفر کا آغاز یہاں سے ہوتا ہے'
+                )}
               </p>
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#FFFFFF] leading-[1.12] tracking-tight">
-                Premium Umrah &amp; Travel Services You Can Trust
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#FFFFFF] leading-[1.16] tracking-tight">
+                {t(
+                  'Premium Umrah & Travel Services You Can Trust',
+                  'معتبر اور بہترین عمرہ و ٹریول سروسز جن پر آپ بھروسہ کر سکتے ہیں'
+                )}
               </h1>
             </div>
 
             <p className="text-base sm:text-lg font-bold text-[#FFFFFF]/90 leading-relaxed max-w-xl">
-              Al Haram Travels &amp; Tours helps pilgrims experience a comfortable,
-              organized and memorable journey with professional travel assistance
-              and dedicated customer care.
+              {t(
+                'Al Harm Travels & Tours helps pilgrims experience a comfortable, organized and memorable journey with professional travel assistance and dedicated customer care.',
+                'الحرم ٹریولز اینڈ ٹورز پیشہ ورانہ سفری رہنمائی اور خصوصی کسٹمر کیئر کے ساتھ عازمینِ عمرہ کو ایک آرام دہ، منظم اور یادگار روحانی سفر فراہم کرتا ہے۔'
+              )}
             </p>
 
             {/* Primary & Secondary CTAs */}
@@ -81,7 +100,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onClick={() => onNavigate('umrah')}
                 className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl bg-[#EEA012] hover:bg-[#E8C377] text-[#0F0F0F] text-sm font-extrabold shadow-[0_12px_30px_-6px_rgba(238,160,18,0.5)] transition-all duration-200 cursor-pointer whitespace-nowrap"
               >
-                <span>Explore Umrah Packages</span>
+                <span>{t('Explore Umrah Packages', 'عمرہ پیکجز دیکھیں')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
@@ -90,7 +109,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onClick={() => onNavigate('book')}
                 className="inline-flex items-center gap-2.5 px-7 py-4 rounded-xl bg-[#0B92D6] hover:bg-[#0B92D6]/90 text-[#FFFFFF] text-sm font-extrabold shadow-[0_12px_30px_-6px_rgba(11,146,214,0.45)] transition-all duration-200 cursor-pointer whitespace-nowrap"
               >
-                <span>Start Your Journey</span>
+                <span>{t('Start Your Journey', 'اپنے سفر کا آغاز کریں')}</span>
               </button>
             </div>
           </div>
@@ -133,26 +152,26 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <Compass className="w-5 h-5 text-[#0F0F0F]" />
                   </SquircleIcon>
                   <span className="text-xs font-extrabold tracking-widest text-[#EEA012] uppercase">
-                    Sacred Pilgrimage Planning
+                    {t('Sacred Pilgrimage Planning', 'مقدس سفر کی منصوبہ بندی')}
                   </span>
                 </div>
                 <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F0F0F]">
-                  FAMILY &amp; GROUP UMRAH
+                  {t('FAMILY & GROUP UMRAH', 'فیملی اور گروپ عمرہ')}
                 </h2>
                 <p className="text-sm font-semibold text-[#0F0F0F]/80 leading-relaxed">
-                  Al Haram Travels &amp; Tours provides tailored Umrah travel
-                  assistance for families, seniors, and organized groups—covering
-                  visa processing, Makkah and Madinah accommodations, Ziyarat, and
-                  private ground transport.
+                  {t(
+                    'Al Harm Travels & Tours provides tailored Umrah travel assistance for families, seniors, and organized groups—covering visa processing, Makkah and Madinah accommodations, Ziyarat, and private ground transport.',
+                    'الحرم ٹریولز اینڈ ٹورز فیملیز، بزرگوں اور منظم گروپس کے لیے خصوصی عمرہ سفری سہولیات فراہم کرتا ہے—جس میں ویزا پروسیسنگ، مکہ مکرمہ اور مدینہ منورہ میں رہائش، زیارات اور پرائیویٹ ٹرانسپورٹ شامل ہیں۔'
+                  )}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 text-xs font-extrabold text-[#0F0F0F]">
                   {[
-                    'Umrah visa assistance',
-                    'Direct & flexible flights',
-                    'Makkah & Madinah hotels',
-                    'Private & group transport',
-                    'Guided Ziyarat tours',
-                    'Dedicated travel support',
+                    t('Umrah visa assistance', 'عمرہ ویزا اسسٹنس'),
+                    t('Direct & flexible flights', 'ڈائریکٹ اور لچکدار پروازیں'),
+                    t('Makkah & Madinah hotels', 'مکہ اور مدینہ کے ہوٹل'),
+                    t('Private & group transport', 'پرائیویٹ اور گروپ ٹرانسپورٹ'),
+                    t('Guided Ziyarat tours', 'مقدس مقامات کی زیارات'),
+                    t('Dedicated travel support', 'مکمل سفری معاونت'),
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#EEA012] shrink-0" />
@@ -168,7 +187,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   onClick={() => onNavigate('umrah')}
                   className="text-xs font-extrabold text-[#0B92D6] hover:underline cursor-pointer"
                 >
-                  Configure Custom Umrah Package
+                  {t('Configure Custom Umrah Package', 'اپنا کسٹم عمرہ پیکج بنائیں')}
                 </button>
                 <button
                   type="button"
@@ -180,7 +199,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   }
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0F0F0F] hover:bg-[#EEA012] text-[#EEA012] hover:text-[#0F0F0F] text-xs font-extrabold transition-colors cursor-pointer whitespace-nowrap"
                 >
-                  <span>Inquire About Umrah</span>
+                  <span>{t('Inquire About Umrah', 'عمرہ معلومات حاصل کریں')}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -194,25 +213,26 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <MapPin className="w-5 h-5 text-[#0B92D6]" />
                   </SquircleIcon>
                   <span className="text-xs font-extrabold tracking-widest text-[#0B92D6] uppercase">
-                    Beyond Pilgrimage
+                    {t('Beyond Pilgrimage', 'سیاحت اور عالمی سفر')}
                   </span>
                 </div>
                 <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F0F0F]">
-                  TRAVEL &amp; TOURS
+                  {t('TRAVEL & TOURS', 'ٹریول اینڈ ٹورز')}
                 </h2>
                 <p className="text-sm font-semibold text-[#0F0F0F]/80 leading-relaxed">
-                  Complete international and domestic travel solutions for
-                  individuals, families, and corporate delegations—including visa
-                  support, global flight ticketing, and curated hotel stays.
+                  {t(
+                    'Complete international and domestic travel solutions for individuals, families, and corporate delegations—including visa support, global flight ticketing, and curated hotel stays.',
+                    'افراد، فیملیز اور کارپوریٹ وفود کے لیے مکمل بین الاقوامی اور ملکی سفری سہولیات—بشمول ویزا سپورٹ، ایئر لائن ٹکٹنگ اور بہترین ہوٹل بکنگ۔'
+                  )}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 text-xs font-extrabold text-[#0F0F0F]">
                   {[
-                    'International Tours',
-                    'Family Tours',
-                    'Group Tours',
-                    'Hotel Booking',
-                    'Flight Booking',
-                    'Customized Travel Plans',
+                    t('International Tours', 'بین الاقوامی ٹورز'),
+                    t('Family Tours', 'فیملی ٹورز'),
+                    t('Group Tours', 'گروپ ٹورز'),
+                    t('Hotel Booking', 'ہوٹل بکنگ'),
+                    t('Flight Booking', 'فلائٹ بکنگ'),
+                    t('Customized Travel Plans', 'کسٹمائزڈ ٹریول پلانز'),
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#0B92D6] shrink-0" />
@@ -228,14 +248,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                   onClick={() => onNavigate('tours')}
                   className="text-xs font-extrabold text-[#0B92D6] hover:underline cursor-pointer"
                 >
-                  View All Tour Categories
+                  {t('View All Tour Categories', 'تمام ٹور کیٹیگریز دیکھیں')}
                 </button>
                 <button
                   type="button"
                   onClick={() => onNavigate('tours')}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0B92D6] hover:bg-[#0F0F0F] text-[#FFFFFF] text-xs font-extrabold transition-colors cursor-pointer whitespace-nowrap"
                 >
-                  <span>Explore Travel &amp; Tours</span>
+                  <span>{t('Explore Travel & Tours', 'ٹریول اینڈ ٹورز دیکھیں')}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -262,3 +282,4 @@ export const HomePage: React.FC<HomePageProps> = ({
     </div>
   );
 };
+

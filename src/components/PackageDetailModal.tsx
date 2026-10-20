@@ -14,6 +14,7 @@ import {
 import { UmrahPackage } from '../data/siteData';
 import { SquircleIcon } from './SquircleIcon';
 import { ResilientImage } from './ResilientImage';
+import { useLanguage } from '../context/LanguageContext';
 
 interface PackageDetailModalProps {
   pkg: UmrahPackage | null;
@@ -26,6 +27,7 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
   onClose,
   onBookPackage,
 }) => {
+  const { t } = useLanguage();
   if (!pkg) return null;
 
   return (
@@ -77,7 +79,9 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 <Clock className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <div>
-                <p className="text-xs font-bold text-[#0B92D6]">Duration</p>
+                <p className="text-xs font-bold text-[#0B92D6]">
+                  {t('Duration', 'دورانیہ')}
+                </p>
                 <p className="text-sm font-extrabold text-[#0F0F0F]">{pkg.duration}</p>
               </div>
             </div>
@@ -87,7 +91,9 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 <Building2 className="w-4 h-4 text-[#0B92D6]" />
               </SquircleIcon>
               <div>
-                <p className="text-xs font-bold text-[#0B92D6]">Hotel Category</p>
+                <p className="text-xs font-bold text-[#0B92D6]">
+                  {t('Hotel Category', 'ہوٹل کیٹیگری')}
+                </p>
                 <p className="text-sm font-extrabold text-[#0F0F0F]">{pkg.hotelCategory}</p>
               </div>
             </div>
@@ -97,7 +103,9 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 <MapPin className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <div>
-                <p className="text-xs font-bold text-[#0B92D6]">Makkah Stay</p>
+                <p className="text-xs font-bold text-[#0B92D6]">
+                  {t('Makkah Stay', 'مکہ مکرمہ میں قیام')}
+                </p>
                 <p className="text-sm font-extrabold text-[#0F0F0F]">{pkg.makkahStay}</p>
               </div>
             </div>
@@ -107,7 +115,9 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 <MapPin className="w-4 h-4 text-[#0B92D6]" />
               </SquircleIcon>
               <div>
-                <p className="text-xs font-bold text-[#0B92D6]">Madinah Stay</p>
+                <p className="text-xs font-bold text-[#0B92D6]">
+                  {t('Madinah Stay', 'مدینہ منورہ میں قیام')}
+                </p>
                 <p className="text-sm font-extrabold text-[#0F0F0F]">{pkg.madinahStay}</p>
               </div>
             </div>
@@ -117,7 +127,9 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 <Car className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <div>
-                <p className="text-xs font-bold text-[#0B92D6]">Transportation</p>
+                <p className="text-xs font-bold text-[#0B92D6]">
+                  {t('Transportation', 'ٹرانسپورٹیشن')}
+                </p>
                 <p className="text-sm font-extrabold text-[#0F0F0F]">{pkg.transport}</p>
               </div>
             </div>
@@ -127,7 +139,9 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 <Plane className="w-4 h-4 text-[#0B92D6]" />
               </SquircleIcon>
               <div>
-                <p className="text-xs font-bold text-[#0B92D6]">Flight Information</p>
+                <p className="text-xs font-bold text-[#0B92D6]">
+                  {t('Flight Information', 'فلائٹ کی معلومات')}
+                </p>
                 <p className="text-sm font-extrabold text-[#0F0F0F]">{pkg.flightInfo}</p>
               </div>
             </div>
@@ -137,7 +151,9 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 <Compass className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
               <div>
-                <p className="text-xs font-bold text-[#0B92D6]">Ziyarat &amp; Guidance</p>
+                <p className="text-xs font-bold text-[#0B92D6]">
+                  {t('Ziyarat & Guidance', 'زیارات اور رہنمائی')}
+                </p>
                 <p className="text-sm font-extrabold text-[#0F0F0F]">{pkg.guidance}</p>
               </div>
             </div>
@@ -147,7 +163,9 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 <ShieldCheck className="w-4 h-4 text-[#0B92D6]" />
               </SquircleIcon>
               <div>
-                <p className="text-xs font-bold text-[#0B92D6]">Dedicated Support</p>
+                <p className="text-xs font-bold text-[#0B92D6]">
+                  {t('Dedicated Support', 'خصوصی سپورٹ')}
+                </p>
                 <p className="text-sm font-extrabold text-[#0F0F0F]">{pkg.support}</p>
               </div>
             </div>
@@ -156,7 +174,7 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
           {/* Package Highlights */}
           <div className="rounded-2xl bg-[#FFF9EB] p-5 border-2 border-[#EEA012]/50">
             <h3 className="font-display text-base font-extrabold text-[#0F0F0F] mb-3">
-              Key Arrangements Included
+              {t('Key Arrangements Included', 'شامل کردہ اہم سہولیات')}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {pkg.highlights.map((item, idx) => (
@@ -174,7 +192,7 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-[#0F0F0F]/10">
             <div>
               <p className="text-xs font-extrabold text-[#0B92D6]">
-                Customized Package
+                {t('Customized Package', 'کسٹمائزڈ پیکج')}
               </p>
               <p className="text-sm font-bold text-[#0F0F0F]">{pkg.availabilityNote}</p>
             </div>
@@ -185,14 +203,14 @@ export const PackageDetailModal: React.FC<PackageDetailModalProps> = ({
                 onClick={onClose}
                 className="px-4 py-2.5 rounded-xl border-2 border-[#0F0F0F]/20 text-xs font-extrabold text-[#0F0F0F] hover:bg-[#0F0F0F]/5 transition-colors cursor-pointer"
               >
-                Close
+                {t('Close', 'بند کریں')}
               </button>
               <button
                 type="button"
                 onClick={() => onBookPackage(pkg)}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#EEA012] hover:bg-[#0F0F0F] text-[#0F0F0F] hover:text-[#EEA012] text-xs font-extrabold transition-colors cursor-pointer whitespace-nowrap"
               >
-                <span>Inquire About This Package</span>
+                <span>{t('Inquire About This Package', 'اس پیکج کے بارے میں معلومات لیں')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

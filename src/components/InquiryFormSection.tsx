@@ -14,6 +14,7 @@ import {
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { SquircleIcon } from './SquircleIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 export interface InquiryPreset {
   travelType?: 'Umrah' | 'Family Tour' | 'Group Tour' | 'Other';
@@ -43,10 +44,19 @@ export interface StoredInquiry {
 
 export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
   preset,
-  heading = 'PLAN YOUR JOURNEY',
-  subheading = 'Share your travel preferences below. Our Gujranwala travel desk will prepare a customized itinerary and contact you directly.',
+  heading,
+  subheading,
   compact = false,
 }) => {
+  const { t } = useLanguage();
+  const displayHeading = heading || t('PLAN YOUR JOURNEY', 'اپنے سفر کی منصوبہ بندی کریں');
+  const displaySubheading =
+    subheading ||
+    t(
+      'Share your travel preferences below. Our Gujranwala travel desk will prepare a customized itinerary and contact you directly.',
+      'اپنی سفری ترجیحات درج ذیل فارم میں شیئر کریں۔ ہمارا گوجرانوالہ ٹریول ڈیسک آپ کے لیے کسٹمائزڈ پلان تیار کر کے براہِ راست آپ سے رابطہ کرے گا۔'
+    );
+
   const [fullName, setFullName] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [email, setEmail] = useState('');
@@ -79,16 +89,28 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
   const validate = () => {
     const nextErrors: Record<string, string> = {};
     if (!fullName.trim()) {
-      nextErrors.fullName = 'Please enter your full name.';
+      nextErrors.fullName = t(
+        'Please enter your full name.',
+        'براہ کرم اپنا پورا نام درج کریں۔'
+      );
     }
     if (!whatsapp.trim() || whatsapp.trim().length < 7) {
-      nextErrors.whatsapp = 'Please enter a valid WhatsApp or phone number.';
+      nextErrors.whatsapp = t(
+        'Please enter a valid WhatsApp or phone number.',
+        'براہ کرم درست واٹس ایپ یا فون نمبر درج کریں۔'
+      );
     }
     if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      nextErrors.email = 'Please enter a valid email address.';
+      nextErrors.email = t(
+        'Please enter a valid email address.',
+        'براہ کرم درست ای میل ایڈریس درج کریں۔'
+      );
     }
     if (!travelers || Number(travelers) < 1) {
-      nextErrors.travelers = 'Please specify at least 1 traveler.';
+      nextErrors.travelers = t(
+        'Please specify at least 1 traveler.',
+        'براہ کرم کم از کم 1 مسافر درج کریں۔'
+      );
     }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -185,13 +207,13 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
     >
       <div className="max-w-2xl mb-8">
         <p className="text-xs font-extrabold tracking-[0.2em] text-[#0B92D6] uppercase mb-2">
-          Al Haram Travel Concierge · Gujranwala
+          {t('Al Harm Travels & Tours · Gujranwala', 'الحرم ٹریولز اینڈ ٹورز · گوجرانوالہ')}
         </p>
         <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0F0F0F]">
-          {heading}
+          {displayHeading}
         </h2>
         <p className="text-sm sm:text-base font-semibold text-[#0F0F0F]/80 mt-2 leading-relaxed">
-          {subheading}
+          {displaySubheading}
         </p>
       </div>
 
@@ -205,14 +227,23 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
 
           <div className="space-y-2">
             <p className="text-xs font-mono font-bold uppercase tracking-widest text-[#0B92D6]">
-              Inquiry Reference · <span className="tabular-nums">{referenceCode}</span>
+              {t('Inquiry Reference', 'درخواست کا حوالہ نمبر')} ·{' '}
+              <span className="tabular-nums">{referenceCode}</span>
             </p>
             <h3 className="font-display text-2xl font-extrabold text-[#0F0F0F]">
-              Thank you. Our travel team will contact you shortly.
+              {t(
+                'Thank you. Our travel team will contact you shortly.',
+                'شکریہ! ہماری ٹریول ٹیم جلد ہی آپ سے رابطہ کرے گی۔'
+              )}
             </h3>
             <p className="text-sm font-semibold text-[#0F0F0F]/85 max-w-md mx-auto leading-relaxed">
-              We have received your request for <strong>{travelType}</strong> ({travelers}{' '}
-              {Number(travelers) === 1 ? 'Traveler' : 'Travelers'}). A dedicated representative from Al Haram Travels &amp; Tours will reach out to you via WhatsApp at <span className="font-mono tabular-nums font-bold text-[#0B92D6]">{whatsapp}</span>.
+              {t(
+                `We have received your request for ${travelType} (${travelers} ${
+                  Number(travelers) === 1 ? 'Traveler' : 'Travelers'
+                }). A dedicated representative from Al Harm Travels & Tours will reach out to you via WhatsApp at `,
+                `ہمیں ${travelType} (${travelers} مسافر) کے لیے آپ کی درخواست موصول ہو گئی ہے۔ الحرم ٹریولز اینڈ ٹورز کا نمائندہ آپ کے واٹس ایپ نمبر پر رابطہ کرے گا: `
+              )}
+              <span className="font-mono tabular-nums font-bold text-[#0B92D6]">{whatsapp}</span>
             </p>
           </div>
 
@@ -223,7 +254,7 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0F0F0F] text-[#EEA012] text-xs font-extrabold hover:bg-[#0B92D6] hover:text-[#FFFFFF] transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              <span>Submit Another Inquiry</span>
+              <span>{t('Submit Another Inquiry', 'ایک اور درخواست بھیجیں')}</span>
             </button>
           </div>
         </div>
@@ -239,14 +270,14 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <User className="w-4 h-4 text-[#0F0F0F]" />
                 </SquircleIcon>
-                <span>Full Name *</span>
+                <span>{t('Full Name *', 'پورا نام *')}</span>
               </label>
               <input
                 id="inquiry-name"
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Enter your full name"
+                placeholder={t('Enter your full name', 'اپنا پورا نام لکھیں')}
                 className="w-full rounded-xl bg-[#FFFFFF] border-2 border-[#0F0F0F]/15 px-4 py-3 text-sm font-bold text-[#0F0F0F] placeholder:text-[#0F0F0F]/40 focus:outline-none focus:border-[#EEA012] transition-colors"
               />
               {errors.fullName && (
@@ -263,7 +294,7 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Phone className="w-4 h-4 text-[#0B92D6]" />
                 </SquircleIcon>
-                <span>WhatsApp Number *</span>
+                <span>{t('WhatsApp Number *', 'واٹس ایپ نمبر *')}</span>
               </label>
               <input
                 id="inquiry-whatsapp"
@@ -287,7 +318,7 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Mail className="w-4 h-4 text-[#EEA012]" />
                 </SquircleIcon>
-                <span>Email Address</span>
+                <span>{t('Email Address', 'ای میل ایڈریس')}</span>
               </label>
               <input
                 id="inquiry-email"
@@ -311,7 +342,7 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Users className="w-4 h-4 text-[#0B92D6]" />
                 </SquircleIcon>
-                <span>Number of Travelers *</span>
+                <span>{t('Number of Travelers *', 'مسافروں کی تعداد *')}</span>
               </label>
               <input
                 id="inquiry-travelers"
@@ -336,7 +367,7 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Compass className="w-4 h-4 text-[#EEA012]" />
                 </SquircleIcon>
-                <span>Travel Type *</span>
+                <span>{t('Travel Type *', 'سفر کی قسم *')}</span>
               </label>
               <select
                 id="inquiry-type"
@@ -344,10 +375,10 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
                 onChange={(e) => setTravelType(e.target.value)}
                 className="w-full rounded-xl bg-[#FFFFFF] border-2 border-[#0F0F0F]/15 px-4 py-3 text-sm font-bold text-[#0F0F0F] focus:outline-none focus:border-[#EEA012] transition-colors"
               >
-                <option value="Umrah">Umrah</option>
-                <option value="Family Tour">Family Tour</option>
-                <option value="Group Tour">Group Tour</option>
-                <option value="Other">Other</option>
+                <option value="Umrah">{t('Umrah', 'عمرہ')}</option>
+                <option value="Family Tour">{t('Family Tour', 'فیملی ٹور')}</option>
+                <option value="Group Tour">{t('Group Tour', 'گروپ ٹور')}</option>
+                <option value="Other">{t('Other', 'دیگر')}</option>
               </select>
             </div>
 
@@ -360,7 +391,7 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
                 <SquircleIcon variant="light" size="sm">
                   <Calendar className="w-4 h-4 text-[#0B92D6]" />
                 </SquircleIcon>
-                <span>Preferred Travel Date</span>
+                <span>{t('Preferred Travel Date', 'پسندیدہ تاریخِ سفر')}</span>
               </label>
               <input
                 id="inquiry-date"
@@ -381,27 +412,33 @@ export const InquiryFormSection: React.FC<InquiryFormSectionProps> = ({
               <SquircleIcon variant="light" size="sm">
                 <MessageSquare className="w-4 h-4 text-[#EEA012]" />
               </SquircleIcon>
-              <span>Message / Specific Preferences</span>
+              <span>{t('Message / Specific Preferences', 'پیغام / خصوصی ترجیحات')}</span>
             </label>
             <textarea
               id="inquiry-message"
               rows={4}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Tell us about your preferred Makkah & Madinah stay duration, hotel proximity, wheelchair assistance, or flight preferences..."
+              placeholder={t(
+                'Tell us about your preferred Makkah & Madinah stay duration, hotel proximity, wheelchair assistance, or flight preferences...',
+                'اپنے مکہ مکرمہ اور مدینہ منورہ میں قیام کے دورانیے، ہوٹل کی قربت، وہیل چیئر کی سہولت یا فلائٹ کی ترجیحات کے بارے میں بتائیں...'
+              )}
               className="w-full rounded-xl bg-[#FFFFFF] border-2 border-[#0F0F0F]/15 p-4 text-sm font-bold text-[#0F0F0F] placeholder:text-[#0F0F0F]/40 focus:outline-none focus:border-[#EEA012] transition-colors"
             />
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
             <p className="text-xs font-bold text-[#0F0F0F]/75">
-              Direct consultation with Al Haram Travels &amp; Tours · No obligation quote.
+              {t(
+                'Direct consultation with Al Harm Travels & Tours · No obligation quote.',
+                'الحرم ٹریولز اینڈ ٹورز کے ساتھ براہِ راست مشاورت · بغیر کسی اضافی فیس کے۔'
+              )}
             </p>
             <button
               type="submit"
               className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-[#EEA012] hover:bg-[#0F0F0F] text-[#0F0F0F] hover:text-[#EEA012] text-sm font-extrabold shadow-[0_10px_25px_-5px_rgba(238,160,18,0.45)] transition-all duration-200 cursor-pointer whitespace-nowrap"
             >
-              <span>SEND INQUIRY</span>
+              <span>{t('SEND INQUIRY', 'درخواست بھیجیں')}</span>
               <Send className="w-4 h-4" />
             </button>
           </div>
